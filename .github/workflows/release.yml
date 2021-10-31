@@ -1,0 +1,23 @@
+name: release
+on:
+  push:
+    branches:
+      - main
+      - candidate-*
+jobs:
+  publish-gpr:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - name: Install Dependencies
+        run: npm ci
+      - name: Linter
+        run: npm run lint
+      - name: Tests
+        run: npm test
+      - name: Release and Publish
+        run: npx semantic-release

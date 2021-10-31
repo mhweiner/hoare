@@ -1,0 +1,61 @@
+{
+  "name": "ts-guts",
+  "version": "0.0.0-development",
+  "description": "A simple, yet all-inclusive unit test framework with built-in mocking and assertions with Typescript support.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mhweiner/ts-guts.git"
+  },
+  "scripts": {
+    "test": "nyc tape -r ts-node/register/transpile-only ./**/*.spec.ts | tap-spec && nyc report --reporter=text",
+    "lint": "eslint ./ --ext .js,.ts",
+    "build": "rm -rf ./dist && tsc --project ./tsconfig.build.json",
+    "prepare": "npm run build"
+  },
+  "homepage": "https://github.com/mhweiner/ts-guts",
+  "keywords": [
+    "unit test",
+    "ts unit test",
+    "typescript unit test",
+    "unit-test",
+    "mock",
+    "mocking",
+    "typescript mocking",
+    "ts mock",
+    "proxyquire",
+    "ts proxyquire",
+    "typescript proxyquire",
+    "isolate",
+    "dependency mock",
+    "rewire"
+  ],
+  "dependencies": {
+    "@types/sinon": "9.0.4",
+    "callsites": "3.1.0",
+    "nyc": "15.1.0",
+    "serialize-error": "7.0.1",
+    "sinon": "9.0.2",
+    "tap-spec": "5.0.0",
+    "tape": "5.0.1",
+    "timekeeper": "2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "14.0.24",
+    "@types/tape": "4.13.0",
+    "@typescript-eslint/eslint-plugin": "3.9.0",
+    "@typescript-eslint/parser": "3.9.0",
+    "eslint": "7.16.0",
+    "semantic-release": "17.4.2",
+    "ts-node": "8.10.2",
+    "typescript": "3.9.7"
+  },
+  "engines": {
+    "node": "~10.19.0",
+    "npm": "~6.13.4"
+  }
+}
