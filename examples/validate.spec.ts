@@ -1,9 +1,7 @@
-import {suite} from '../src';
+import {test} from '../src';
 import {InvalidPhoneNumber, validatePhoneNumber} from './validate';
 
-const s = suite('validate()');
-
-s.test('valid phone number', (assert) => {
+test('valid phone number', (assert) => {
 
     // given
     const phone = '+15551231234';
@@ -25,7 +23,7 @@ s.test('valid phone number', (assert) => {
 
 });
 
-s.test('invalid phone number', (assert) => {
+test('invalid phone number', (assert) => {
 
     // given
     const phone = '123';

@@ -55,7 +55,7 @@ function resolve(modulePath: string, dir: string, parentModule: any): string {
 
 }
 
-function registerMockModules(mockModules: object, dir: string, parentModule: any) {
+function registerMockModules(mockModules: any, dir: string, parentModule: any) {
 
     Object.entries(mockModules).forEach((mockModule: any) => {
 
@@ -79,10 +79,7 @@ function registerMockModules(mockModules: object, dir: string, parentModule: any
 
 }
 
-export function isolate(modulePath: string, mocks: {
-    imports?: object
-    props?: object
-}) {
+export function isolate(modulePath: string, mocks: any) {
 
     if (process.env.NODE_ENV === 'production') throw new Error('not for use in production');
 
@@ -101,7 +98,7 @@ export function isolate(modulePath: string, mocks: {
 
     }
 
-    mocks.imports && registerMockModules(mocks.imports, moduleDir, parentModule);
+    mocks.imports && registerMockModules(mocks, moduleDir, parentModule);
     delete require.cache[absolutePath];
 
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
@@ -115,18 +112,9 @@ export function isolate(modulePath: string, mocks: {
 
     }
 
-    mocks.props && mockProps(mod, mocks.props);
-
     // make sure this is not cached either, especially as it contains mocks that we don't want to keep around
     delete require.cache[absolutePath];
 
     return mod;
-
-}
-
-function mockProps(mod: any, mocks: [string, any][]) {
-
-    // eslint-disable-next-line prefer-destructuring
-    mocks.forEach((tuple) => mod[tuple[0]] = tuple[1]);
 
 }

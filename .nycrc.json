@@ -3,10 +3,7 @@
         ".ts"
     ],
     "require": [
-        "ts-node/register/transpile-only"
-    ],
-    "include": [
-        "**/*.ts"
+        "ts-node/register"
     ],
     "exclude": [
         "node_modules",

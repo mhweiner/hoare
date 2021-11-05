@@ -1,5 +1,3 @@
-import {multiply} from './multiply';
-
 export function exponent(base: number, exp: number): number {
 
     if (exp < 0) throw new Error('exponent must be >= 0');
@@ -11,7 +9,7 @@ export function exponent(base: number, exp: number): number {
         case 1:
             return base;
         default:
-            return multiply(base, exponent(base, exp - 1));
+            return base * exponent(base, exp - 1);
 
     }
 
