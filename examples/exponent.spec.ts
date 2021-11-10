@@ -10,3 +10,4 @@ test('exponent()', (assert) => {
     assert.deepEqual(exponent(3, 3), 27, 'should be 27');
 
 });
+

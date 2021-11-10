@@ -1,5 +1,5 @@
 import {test} from '../src';
-import {helloworld} from './helloworld';
+import {helloworld} from './helloworld-js';
 
 test('helloworld()', (assert) => {
 

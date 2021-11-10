@@ -106,7 +106,6 @@ module.exports = {
         'padding-line-between-statements': ['error', {blankLine: "always", prev: ["const", "let", "var"], next: "*"}, {blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var"]}],
         'prefer-arrow-callback': 'error',
         'prefer-const': 'error',
-        'prefer-destructuring': 'error',
         'prefer-rest-params': 'error',
         'prefer-spread': 'error',
         'prefer-template': 'error',

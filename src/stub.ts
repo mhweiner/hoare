@@ -1,4 +1,4 @@
-import sinon, {SinonStub} from 'sinon';
+import * as sinon from 'sinon';
 
 export function stub() {
 
@@ -6,7 +6,7 @@ export function stub() {
 
 }
 
-export function stubWithData(inputs: any[], outputs: any[]): SinonStub<any, any> {
+export function stubWithData(inputs: any[], outputs: any[]): sinon.SinonStub<any, any> {
 
     const sinonStub = sinon.stub();
 

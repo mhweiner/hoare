@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "allowJs": false,
-    "target": "ES2017",
+    "allowJs": true,
+    "target": "ES2015",
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "CommonJS",
     "declaration": true,
-    "lib": ["es2017", "es7", "es6"],
+    "lib": ["ES2020"],
     "removeComments": false,
     "emitDecoratorMetadata": false,
     "experimentalDecorators": false,

@@ -1,15 +1,17 @@
-import fg from 'fast-glob';
-import execa from 'execa';
+import * as fg from 'fast-glob';
+import * as execa from 'execa';
+import {fileResults, totalSummary} from './src/fileResults';
 
-const specFiles = fg.sync(['demo/**/*.spec.ts']);
-
-console.log(`found files: ${specFiles}`);
-
+const glob = process.argv[2];
+const specFiles = fg.sync([glob]);
 const resolves = specFiles.map((file) => execa.command(`ts-node runner.ts ${file}`));
 
-Promise.all(resolves).then((results) => results.map((result, i) => (
-    console.log({
-        file: specFiles[i],
-        stdout: result.stdout,
-    })
-)));
+Promise.all(resolves).then((results) => {
+
+    results.forEach((result, i) => (
+        fileResults(specFiles[i], JSON.parse(result.stdout))
+    ));
+
+    totalSummary();
+
+});

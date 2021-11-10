@@ -1,27 +1,21 @@
-type TestResults = {
-    title: string
+import {createAssertionPredicates} from './assertions';
+
+export type TestResults = {
+    description: string
     assertions: Assertion[]
 };
 
-type Assertion = {
+export type Assertion = {
     pass: boolean
     name?: string
     description?: string
-    error?: string
 };
 
 const testResults: TestResults[] = [];
 
-function createAssertionPredicates(assertions: Assertion[]) {
+type AssertionAPI = ReturnType<typeof createAssertionPredicates>;
 
-    return {
-        pass: () => assertions.push({pass: true}),
-        fail: () => assertions.push({pass: false}),
-    };
-
-}
-
-export async function test(title: string, experiment: (assert: ReturnType<typeof createAssertionPredicates>) => void) {
+export async function test(description: string, experiment: (assert: AssertionAPI) => void) {
 
     if (process.env.NODE_ENV === 'production') throw new Error('not for use in production');
 
@@ -30,7 +24,7 @@ export async function test(title: string, experiment: (assert: ReturnType<typeof
 
     await expAsync();
 
-    testResults.push({title, assertions});
+    testResults.push({description, assertions});
 
 }
 

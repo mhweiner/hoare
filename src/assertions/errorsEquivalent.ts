@@ -1,7 +1,8 @@
-import tape from 'tape';
 import {serializeError} from 'serialize-error';
+import {Assertion} from '../test';
+import {deepStrictEqual} from '../deepStrictEqual';
 
-export function errorsEquivalent(t: tape.Test, actualErr: any, expectedErr: any, msg?: string) {
+export function errorsEquivalent(assertions: Assertion[], actualErr: any, expectedErr: any, description?: string) {
 
     if (!(actualErr instanceof Error) && typeof actualErr !== 'undefined')
         throw new Error('actualErr is not an instance of Error');
@@ -12,10 +13,9 @@ export function errorsEquivalent(t: tape.Test, actualErr: any, expectedErr: any,
     const expectedErrSerialized = serializeError(expectedErr);
 
     // ignore stack traces
-
     delete actualErrSerialized?.stack;
     delete expectedErrSerialized?.stack;
 
-    t.deepEqual(actualErrSerialized, expectedErrSerialized, msg);
+    assertions.push({pass: deepStrictEqual(actualErrSerialized, expectedErrSerialized), description});
 
 }

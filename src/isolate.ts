@@ -1,8 +1,7 @@
 import path from 'path';
+import callsites from 'callsites';
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const Module = require('module');
-// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-const callsites = require('callsites');
 const registeredMocks = new Map<string, {modulePath: string, mockReturnValue: any}>();
 
 function debug(msg: any) {
@@ -25,7 +24,7 @@ Module.prototype.require = new Proxy(Module.prototype.require, {
 
         if (mock) {
 
-            debug(`require(): <!> REPLACING ${name} [${absolutePath}] WITH MOCK`);
+            debug(`require(): replacing ${name} [${absolutePath}] with mock`);
             registeredMocks.delete(absolutePath);
             return mock.mockReturnValue;
 
@@ -98,7 +97,7 @@ export function isolate(modulePath: string, mocks: any) {
 
     }
 
-    mocks.imports && registerMockModules(mocks, moduleDir, parentModule);
+    registerMockModules(mocks, moduleDir, parentModule);
     delete require.cache[absolutePath];
 
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
