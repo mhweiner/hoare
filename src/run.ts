@@ -1,6 +1,6 @@
 import * as fg from 'fast-glob';
 import * as execa from 'execa';
-import {fileResults, totalSummary} from './src/fileResults';
+import {fileResults, totalSummary} from './fileResults';
 
 const glob = process.argv[2];
 const specFiles = fg.sync([glob]);

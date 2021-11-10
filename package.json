@@ -9,15 +9,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mhweiner/js-spec.git"
+    "url": "https://github.com/mhweiner/hoare.git"
   },
   "scripts": {
-    "test": "c8 -r=text ts-node run.ts 'demo/**/*.spec.@(ts|js)'",
+    "test": "c8 -r=text ts-node src/run.ts 'demo/**/*.spec.@(ts|js)'",
     "lint": "eslint ./ --ext .js,.ts",
     "build": "rm -rf ./dist && tsc --project ./tsconfig.json",
     "prepare": "npm run build"
   },
-  "homepage": "https://github.com/mhweiner/js-spec",
+  "homepage": "https://github.com/mhweiner/hoare",
   "keywords": [
     "unit test",
     "ts unit test",

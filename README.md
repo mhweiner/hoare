@@ -1,7 +1,7 @@
-# js-spec
+# hoare
 
-[![Build Status](https://github.com/mhweiner/ts-test/workflows/build/badge.svg)](https://github.com/mhweiner/ts-test/actions)
-[![Release Status](https://github.com/mhweiner/ts-test/workflows/release/badge.svg)](https://github.com/mhweiner/ts-test/actions)
+[![Build Status](https://github.com/mhweiner/hoare/workflows/build/badge.svg)](https://github.com/mhweiner/hoare/actions)
+[![Release Status](https://github.com/mhweiner/hoare/workflows/release/badge.svg)](https://github.com/mhweiner/hoare/actions)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 A simple, opinionated, and all-inclusive unit test framework with everything you need to write GUTS (Good Unit Tests). Built-in module isolation, mocking, assertions, and code coverage.
@@ -45,7 +45,7 @@ export function exponent(base: number, exp: number): number {
 ```
 _exponent.spec.ts_
 ```typescript
-import {isolate, test} from 'ts-test';
+import {isolate, test} from 'hoare';
 import * as exponentModule from './exponent'; //used only for typing
 
 test('exponent(): alternate reality where multiplication is actually addition', (assert) => {
@@ -67,7 +67,7 @@ test('exponent(): alternate reality where multiplication is actually addition', 
 1. Install from npm:
 
     ```shell script
-    npm i ts-test -DE
+    npm i hoare -DE
     ```
 1. Create an `.nycrc` file in the root of your project with the following:
 ```
@@ -87,10 +87,10 @@ test('exponent(): alternate reality where multiplication is actually addition', 
     ]
 }
 ```
-1. Add "ts-test" command to your `npm test` script:
+1. Add "hoare" command to your `npm test` script:
 ```
 "scripts": {
-    "test": "ts-test"
+    "test": "hoare"
     ...
 }
 ```
@@ -105,7 +105,7 @@ export function foo() { return 'flooble'; }
 ```
 _foo.spec.ts_
 ```typescript
-import {test} from 'ts-test';
+import {test} from 'hoare';
 import {foo} from './foo';
 
 test('foo()', async (assert) => {
@@ -203,7 +203,7 @@ export function greet() {
 Then, you can do this:
 
 ```typescript
-import {isolate} from 'ts-test';
+import {isolate} from 'hoare';
 import * as helloWorldModule from './helloworld';
 
 const mocked: typeof helloWorldModule = isolate('./helloworld', {
