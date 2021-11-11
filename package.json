@@ -3,7 +3,9 @@
   "version": "1.4.0",
   "description": "A simple, yet all-inclusive unit test framework with built-in mocking and assertions with Typescript support.",
   "main": "dist/index.js",
-  "bin": "dist/cli.sh",
+  "bin": {
+    "hoare": "dist/cli.sh"
+  },
   "types": "dist/index.d.ts",
   "files": [
     "dist",
