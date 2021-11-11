@@ -58,7 +58,6 @@ module.exports = {
         'no-new-func': 'error',
         'no-new-object': 'error',
         'no-param-reassign': 'error',
-        'no-plusplus': 'error',
         'no-prototype-builtins': 'error',
         'no-restricted-globals': [
             "error",
@@ -125,7 +124,7 @@ module.exports = {
         'space-infix-ops': 'error',
         'spaced-comment': 'error',
         'template-curly-spacing': 'error',
-        
+
         // Typescript plugin requires turning off the base-eslint versions of some of these rules
         'camelcase': 'off',
         'indent': 'off',

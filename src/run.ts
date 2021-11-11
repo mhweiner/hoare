@@ -1,28 +1,33 @@
 import {cpus} from 'os';
 import {fork} from 'child_process';
-import {getSpecFiles} from './getSpecFiles';
 import {TestResults} from './test';
 import {fileResults, totalSummary} from './fileResults';
 import ora from 'ora';
+import fg from 'fast-glob';
 
 const log = console.log;
-
-const specFiles = getSpecFiles();
-const numSpecFiles = specFiles.length;
 const numCores = cpus().length; // will be the size of our worker pool
-
-log(`Found ${numSpecFiles} spec files.\n`);
-
-const status = ora({
-    text: 'Running tests...',
-    spinner: 'line',
-}).start();
+const testResultsByFile: {[file: string]: TestResults[]} = {};
+const specFiles = fg.sync([process.argv[2]]);
 
 let numWorkers = 0;
 let currentSpecFileIndex = 0;
 let numCompletedTests = 0;
 
-const testResultsByFile: {[file: string]: TestResults[]} = {};
+log(`Found ${specFiles.length} spec files.\n`);
+
+const status = ora({
+    spinner: 'line',
+    text: 'Running tests...',
+}).start();
+
+function finish() {
+
+    status.stop();
+    specFiles.forEach((file) => fileResults(file, testResultsByFile[file]));
+    totalSummary();
+
+}
 
 function addResults(file: string, results: TestResults) {
 
@@ -34,19 +39,19 @@ function addResults(file: string, results: TestResults) {
 
 function next() {
 
-    if (currentSpecFileIndex >= numSpecFiles && numWorkers === 0) finish();
-    if (currentSpecFileIndex >= numSpecFiles) return;
+    if (currentSpecFileIndex >= specFiles.length && numWorkers === 0) finish();
+    if (currentSpecFileIndex >= specFiles.length) return;
     if (numWorkers >= numCores) return;
 
     const file = specFiles[currentSpecFileIndex];
     const worker = fork(file);
 
-    numWorkers = numWorkers + 1;
-    currentSpecFileIndex = currentSpecFileIndex + 1;
+    numWorkers++;
+    currentSpecFileIndex++;
 
     worker.on('close', () => {
 
-        numWorkers = numWorkers - 1;
+        numWorkers--;
         next();
 
     });
@@ -58,11 +63,3 @@ function next() {
 }
 
 next();
-
-function finish() {
-
-    status.stop();
-    specFiles.forEach((file) => fileResults(file, testResultsByFile[file]));
-    totalSummary();
-
-}
