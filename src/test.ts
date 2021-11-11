@@ -11,8 +11,6 @@ export type Assertion = {
     description?: string
 };
 
-const testResults: TestResults[] = [];
-
 type AssertionAPI = ReturnType<typeof createAssertionPredicates>;
 
 export async function test(description: string, experiment: (assert: AssertionAPI) => void) {
@@ -24,12 +22,7 @@ export async function test(description: string, experiment: (assert: AssertionAP
 
     await expAsync();
 
-    testResults.push({description, assertions});
-
-}
-
-export function getTestResults() {
-
-    return testResults;
+    // @ts-ignore
+    process.send({description, assertions});
 
 }

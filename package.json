@@ -12,7 +12,7 @@
     "url": "https://github.com/mhweiner/hoare.git"
   },
   "scripts": {
-    "test": "c8 -r=text ts-node src/run.ts 'demo/**/*.spec.@(ts|js)'",
+    "test": "npm run build && c8 -r=text ts-node dist/run.js 'demo/**/*.spec.@(ts|js)'",
     "lint": "eslint ./ --ext .js,.ts",
     "build": "rm -rf ./dist && tsc --project ./tsconfig.json",
     "prepare": "npm run build"
@@ -37,8 +37,9 @@
   "dependencies": {
     "c8": "^7.10.0",
     "callsites": "3.1.0",
-    "execa": "5.1.1",
+    "chalk": "4.1.2",
     "fast-glob": "^3.2.7",
+    "ora": "5.4.1",
     "serialize-error": "8.1.0",
     "sinon": "11.1.2",
     "timekeeper": "2.2.0"
