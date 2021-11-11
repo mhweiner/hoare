@@ -24,7 +24,7 @@ const status = ora({
 function finish() {
 
     status.stop();
-    specFiles.forEach((file) => fileResults(file, testResultsByFile[file]));
+    specFiles.forEach((file) => fileResults(file, testResultsByFile[file] || []));
     totalSummary();
 
 }
