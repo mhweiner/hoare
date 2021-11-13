@@ -18,6 +18,16 @@ export type Assertion = {
 
 type AssertionAPI = ReturnType<typeof createAssertionPredicates>;
 
+process.on('unhandledRejection', (err: any) => {
+
+    sendTestResults({
+        description: 'Unhandled Promise Rejection',
+        assertions: [],
+        error: serializeError(err),
+    });
+
+});
+
 export async function test(description: string, experiment: (assert: AssertionAPI) => void) {
 
     const assertions: Assertion[] = [];
