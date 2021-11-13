@@ -1,7 +1,7 @@
-import {TestResults} from './test';
-import {TestResultsByFile, FinalResults} from './run';
+import {TestResultsByFile} from './run';
+import {isTestPassing} from './isTestPassing';
 
-export function calculateFinalResults(specFiles: string[], testResults: TestResultsByFile): FinalResults {
+export function calculateFinalResults(specFiles: string[], testResults: TestResultsByFile) {
 
     const filesWithTests = Object.entries(testResults);
     const numFiles = filesWithTests.length;
@@ -16,24 +16,5 @@ export function calculateFinalResults(specFiles: string[], testResults: TestResu
     ), 0);
 
     return {numFiles, numTests, numSuccessfulTests, filesWithNoTests};
-
-}
-
-/**
- * All assertions must pass, with no errors, and at least one assertion.
- * @param test
- */
-export function isTestPassing(test: TestResults) {
-
-    if (!test.assertions.length) return false;
-    if (test.error) return false;
-
-    return test.assertions.reduce((pass, assertion) => pass && assertion.pass, true);
-
-}
-
-export function shouldExitWithError(finalResults: FinalResults) {
-
-    return finalResults.filesWithNoTests.length || finalResults.numSuccessfulTests / finalResults.numTests !== 1;
 
 }

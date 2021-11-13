@@ -8,16 +8,19 @@ import {AssertionError} from './AssertionError';
 
 export function equal(assertions: Assertion[], actual: any, expected: any, description?: string) {
 
+    const defaultDescription = 'equal()';
+    const descWithDefault = description || defaultDescription;
+
     if (deepStrictEqual(actual, expected)) {
 
-        assertions.push({pass: true, description});
+        assertions.push({pass: true, description: descWithDefault});
 
     } else {
 
         const diagnostic = createDiagnostic(actual, expected);
         const stack = new AssertionError('not deeply and strictly equivalent').stack;
 
-        assertions.push({pass: false, description, diagnostic, stack});
+        assertions.push({pass: false, description: descWithDefault, diagnostic, stack});
 
     }
 

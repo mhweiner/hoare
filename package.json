@@ -17,7 +17,7 @@
     "url": "https://github.com/mhweiner/hoare.git"
   },
   "scripts": {
-    "test": "npm run build && c8 ./bin/cli.js 'demo/**/*.spec.@(ts|js)' && c8 report -r text -r html",
+    "test": "npm run build && c8 ./bin/cli.js '@(demo|src)/**/*.spec.@(ts|js)' && c8 report -r text -r html",
     "lint": "eslint ./ --ext .js,.ts",
     "build": "rm -rf ./dist && tsc --project ./tsconfig.json",
     "prepare": "npm run build"
@@ -44,16 +44,15 @@
     "callsites": "3.1.0",
     "deep-object-diff": "1.1.0",
     "diff": "5.0.0",
-    "fast-glob": "^3.2.7",
     "kleur": "4.1.4",
     "ora": "5.4.1",
     "serialize-error": "8.1.0",
     "sinon": "11.1.2",
-    "timekeeper": "2.2.0"
+    "timekeeper": "2.2.0",
+    "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
     "@types/diff": "^5.0.1",
-    "@types/glob": "7.2.0",
     "@types/node": "^16.11.6",
     "@types/sinon": "10.0.6",
     "@typescript-eslint/eslint-plugin": "^5.2.0",

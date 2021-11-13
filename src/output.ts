@@ -1,6 +1,6 @@
 import kleur from 'kleur';
 import {TestResultsByFile, FinalResults} from './run';
-import {isTestPassing} from './calculateFinalResults';
+import {isTestPassing} from './isTestPassing';
 import {Assertion} from './test';
 import {deserializeError, ErrorObject} from 'serialize-error';
 

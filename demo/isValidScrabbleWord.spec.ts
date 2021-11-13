@@ -1,11 +1,11 @@
-import {test, isolate} from '../src';
-import * as mod from './isValidScrabbleWord';
+import {test, mock} from '../src';
+import * as mod from './isValidScrabbleWord'; // just used for type
 
 test('isValidScrabbleWord(): valid word', (assert) => {
 
     // given
     const validWordsDictFile = ['dog', 'cat', 'fish'].join('\n');
-    const mockMod: typeof mod = isolate('./isValidScrabbleWord', {
+    const mockMod: typeof mod = mock('./isValidScrabbleWord', {
         fs: {readFileSync: () => validWordsDictFile},
     });
 
@@ -21,7 +21,7 @@ test('isValidScrabbleWord(): invalid word', (assert) => {
 
     // given
     const validWordsDictFile = ['dog', 'cat', 'fish'].join('\n');
-    const mockMod: typeof mod = isolate('./isValidScrabbleWord', {
+    const mockMod: typeof mod = mock('./isValidScrabbleWord', {
         fs: {readFileSync: () => validWordsDictFile},
     });
 

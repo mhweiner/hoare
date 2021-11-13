@@ -1,4 +1,4 @@
 export * from './test';
-export * from './isolate';
+export * from './mock';
 export * from './stub';
 

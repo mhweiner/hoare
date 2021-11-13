@@ -1,12 +1,13 @@
 import {TestResults} from './test';
 import ora from 'ora';
-import fg from 'fast-glob';
 import {printFileResults, printSummary} from './output';
-import {calculateFinalResults, shouldExitWithError} from './calculateFinalResults';
+import {calculateFinalResults} from './calculateFinalResults';
 import {createPool} from './workerPool';
+import {shouldExitWithError} from './shouldExitWithError';
+import {getSpecFiles} from './getSpecFiles';
 
-const log = console.log;
-const specFiles = fg.sync([process.argv[2]]);
+const testResultsByFile: TestResultsByFile = {};
+let numCompletedTests = 0;
 
 export type TestResultsByFile = {[file: string]: TestResults[]};
 export type FinalResults = {
@@ -16,38 +17,17 @@ export type FinalResults = {
     filesWithNoTests: string[]
 };
 
-const testResultsByFile: TestResultsByFile = {};
-
-let numCompletedTests = 0;
-
-log(`Found ${specFiles.length} spec files.\n`);
-
 const status = ora({
     spinner: 'line',
-    text: 'Running tests...',
-}).start();
+});
 
-createPool(specFiles, addTestResults, finish);
+async function start() {
 
-/**
- * Calculate results, update status, output results, and exit appropriately.
- */
-function finish() {
+    const specFiles = await getSpecFiles();
 
-    // update status
-    status.stop();
-
-    // tabulate results
-    const finalResults = calculateFinalResults(specFiles, testResultsByFile);
-
-    // print results by file
-    printFileResults(testResultsByFile);
-
-    // output totals summary
-    printSummary(finalResults);
-
-    // exit appropriately
-    if (shouldExitWithError(finalResults)) process.exit(1);
+    console.log(`Found ${specFiles.length} spec files.\n`);
+    status.start('Running tests...');
+    createPool(specFiles, addTestResults, () => finish(specFiles));
 
 }
 
@@ -65,3 +45,17 @@ function addTestResults(file: string, results: TestResults) {
     status.text = `${numCompletedTests} tests completed.`;
 
 }
+
+function finish(specFiles: string[]) {
+
+    status.stop();
+
+    const finalResults = calculateFinalResults(specFiles, testResultsByFile);
+
+    printFileResults(testResultsByFile);
+    printSummary(finalResults);
+    if (shouldExitWithError(finalResults)) process.exit(1);
+
+}
+
+start().catch(console.log.bind(console));

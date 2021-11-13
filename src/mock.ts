@@ -8,7 +8,7 @@ function debug(msg: any) {
 
     if (!process.env.ISOLATE_DEBUG) return;
 
-    console.log('isolate debug:', msg);
+    console.log('hoare.mock() DEBUG: ', msg);
 
 }
 
@@ -78,7 +78,7 @@ function registerMockModules(mockModules: any, dir: string, parentModule: any) {
 
 }
 
-export function isolate(modulePath: string, mocks: any) {
+export function mock(modulePath: string, mocks: any) {
 
     if (process.env.NODE_ENV === 'production') throw new Error('not for use in production');
 
@@ -88,8 +88,8 @@ export function isolate(modulePath: string, mocks: any) {
     const absolutePath = resolve(modulePath, dir, parentModule);
     const moduleDir = path.dirname(absolutePath);
 
-    debug(`isolate(): ${modulePath} [${absolutePath}]`);
-    debug(`isolate(): caller: ${callerFile}`);
+    debug(`mock(): ${modulePath} [${absolutePath}]`);
+    debug(`mock(): caller: ${callerFile}`);
 
     if (!absolutePath) {
 
