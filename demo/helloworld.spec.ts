@@ -3,6 +3,15 @@ import {helloworld} from './helloworld';
 
 test('helloworld()', (assert) => {
 
-    assert.equal(helloworld(), 'hello, world', 'returns "hello, world"');
+    blah;
+
+    if (process.env) throw new Error('oh shit');
+
+    assert.equal({
+        foo: 'baz',
+        crap: 'dig',
+    }, {
+        foo: 'bar',
+    }, 'returns "hello, world"');
 
 });

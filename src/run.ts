@@ -1,17 +1,23 @@
-import {cpus} from 'os';
-import {fork} from 'child_process';
 import {TestResults} from './test';
-import {fileResults, totalSummary} from './fileResults';
 import ora from 'ora';
 import fg from 'fast-glob';
+import {printFileResults, printSummary} from './output';
+import {calculateFinalResults, shouldExitWithError} from './calculateFinalResults';
+import {createPool} from './workerPool';
 
 const log = console.log;
-const numCores = cpus().length; // will be the size of our worker pool
-const testResultsByFile: {[file: string]: TestResults[]} = {};
 const specFiles = fg.sync([process.argv[2]]);
 
-let numWorkers = 0;
-let currentSpecFileIndex = 0;
+export type TestResultsByFile = {[file: string]: TestResults[]};
+export type FinalResults = {
+    numFiles: number
+    numTests: number
+    numSuccessfulTests: number
+    filesWithNoTests: string[]
+};
+
+const testResultsByFile: TestResultsByFile = {};
+
 let numCompletedTests = 0;
 
 log(`Found ${specFiles.length} spec files.\n`);
@@ -21,45 +27,41 @@ const status = ora({
     text: 'Running tests...',
 }).start();
 
+createPool(specFiles, addTestResults, finish);
+
+/**
+ * Calculate results, update status, output results, and exit appropriately.
+ */
 function finish() {
 
+    // update status
     status.stop();
-    specFiles.forEach((file) => fileResults(file, testResultsByFile[file] || []));
-    totalSummary();
+
+    // tabulate results
+    const finalResults = calculateFinalResults(specFiles, testResultsByFile);
+
+    // print results by file
+    printFileResults(testResultsByFile);
+
+    // output totals summary
+    printSummary(finalResults);
+
+    // exit appropriately
+    if (shouldExitWithError(finalResults)) process.exit(1);
 
 }
 
-function addResults(file: string, results: TestResults) {
+/**
+ * Add TestResults and update status.
+ * @param file
+ * @param results
+ */
+function addTestResults(file: string, results: TestResults) {
 
     numCompletedTests = numCompletedTests + 1;
     testResultsByFile[file] = (testResultsByFile[file] || []).concat([results]);
+
+    // update status
     status.text = `${numCompletedTests} tests completed.`;
 
 }
-
-function next() {
-
-    if (currentSpecFileIndex >= specFiles.length && numWorkers === 0) finish();
-    if (currentSpecFileIndex >= specFiles.length) return;
-    if (numWorkers >= numCores) return;
-
-    const file = specFiles[currentSpecFileIndex];
-    const worker = fork(file);
-
-    numWorkers++;
-    currentSpecFileIndex++;
-
-    worker.on('close', () => {
-
-        numWorkers--;
-        next();
-
-    });
-
-    worker.on('message', (msg) => addResults(file, msg as TestResults));
-
-    next();
-
-}
-
-next();
