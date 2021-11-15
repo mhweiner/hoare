@@ -1,4 +1,4 @@
-<img src="docs/hoare-triple.png" title="Hoare Triple" alt="Hoare Triple" width="300">
+<img src="docs/hoare-triple.png" title="Hoare Triple" alt="Hoare Triple" width="200">
 
 # hoare
 
