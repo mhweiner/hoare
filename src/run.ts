@@ -17,9 +17,7 @@ export type FinalResults = {
     filesWithNoTests: string[]
 };
 
-const status = ora({
-    spinner: 'line',
-});
+const status = ora();
 
 async function start() {
 

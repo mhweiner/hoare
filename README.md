@@ -6,7 +6,9 @@
 [![Release Status](https://github.com/mhweiner/hoare/workflows/release/badge.svg)](https://github.com/mhweiner/hoare/actions)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-A simple and opinionated Javascript/Typescript testing framework designed to help you to write (and execute) simple, readable, and maintainable GUTS (Good Unit Tests). It is inspired by and named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
+A simple and opinionated Javascript/Typescript testing framework designed to help you to write and execute simple, readable, and maintainable tests. 
+
+`hoare` is inspired by and named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
 
 - **Out-of-the-box Typescript support**
   - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
@@ -74,24 +76,55 @@ test('should return "hello, world"', (assert) => {
   assert.equal(helloworld(), 'hello, world');
 });
 ```
-### Example 2: Module Mocking & Hoare Triple
+### Example 2: Valid Word
 
-_helloworld.ts_
+_isValidWord.ts_
 ```typescript
-import {}
+import {readFile} from 'fs/promises';
 
-export function getMoviesByAuthor(author: string) {
-  
+export async function isValidWord(word: string) {
+  const validWords = await getValidWords();
+  return validWords.indexOf(word) !== -1;
+}
+
+async function getValidWords() {
+  const contents = await readFile('./dict.txt', 'utf-8');
+  return contents.split('\n');
 }
 ```
-_helloworld.spec.ts_
+_isValidWord.spec.ts_
 ```typescript
-import {test, mock, stub} from 'hoare';
-import {helloworld} from './helloworld';
+import {test, mock} from '../src';
+import * as mod from './isValidWord'; // just used for type
 
-test('should return "hello, world"', (assert) => {
-  assert.equal(helloworld(), 'hello, world');
+test('valid word returns true', async (assert) => {
+  // given
+  const dict = ['dog', 'cat', 'fish'].join('\n');
+  const mockMod: typeof mod = mock('./isValidWord', {
+    'fs/promises': {readFile: () => Promise.resolve(dict)},
+  });
+  
+  // when
+  const result = await mockMod.isValidWord('dog');
+  
+  // then
+  assert.equal(result, true);
 });
+
+test('invalid word returns false', async (assert) => {
+  // given
+  const dict = ['dog', 'cat', 'fish'].join('\n');
+  const mockMod: typeof mod = mock('./isValidWord', {
+    'fs/promises': {readFile: () => Promise.resolve(dict)},
+  });
+  
+  // when
+  const result = await mockMod.isValidWord('nope');
+  
+  // then
+  assert.equal(result, false);
+});
+
 ```
 
 
