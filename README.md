@@ -23,7 +23,7 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
   - No need for `plan()` or `end()`, or to wrap every test in catch blocks.
 
 
-- **Simple & Easy to Use**
+- **Easy to Use**
   - Simplified assertion API. You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
   - Any stray `stdout`, errors, or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
   - Built-in powerful diff visualization tool for strings and objects.
@@ -44,8 +44,8 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 
 
 - **Robust & Reliable**
-  - The JS/TS ecosystem moves fast. This tool is designed with the goals of simplicity, modularity, and readability in order to remain maintainable. Breaking changes are strongly avoided. This package follows `semver`.
-  - Very small filesize, simple, and modular code written in Typescript with minimal dependencies.
+  - Small, simple, and modular codebase written in Typescript with minimal dependencies.
+  - Breaking changes are discouraged. This package follows `semver`.
 
 > Compositionality is THE way to control complexity.
 —Brian Beckman
@@ -322,9 +322,9 @@ All that said, the NodeJS ecosystem is always rapidly changing, and it is possib
 
 ## Why doesn't this package include module mocking and code coverage?
 
-Simplicity and separation of concerns. It's really easy for one to fixate on the ideal of a single package to solve everything. It's actually the idea I started with. However, one must be willing to let go of these ideals once it is clear that the disadvantages outweigh the benefits.
+It's really easy for one to fixate on the ideal of a single package to solve everything. It's actually the idea I started with. However, engineers must be willing to let go of ideals once it is clear that the disadvantages outweigh the benefits.
 
-Currently, there is a major shift in the Javascript world from CJS to ESM in how module resolution and loading works. These two are largely incompatible with each other. Instead, it would make more sense for `hoare` to stay agnostic to these tools, and allow people to use the tools they need, given their situation -- and to rely on that tool's documentation for configuration and changes. Their dependencies also remain their problem, not the maintainers of this package.
+Currently, there is a major shift in the Javascript world from CJS to ESM, which is how module resolution and loading works. Instead, it would make more sense for `hoare` to stay agnostic to these tools, and allow people to use the tools they need, given their situation -- and to rely on that tool's documentation for configuration and changes. Their dependencies also remain their problem, not the maintainers of this package.
 
 Instead, we simply provide great instructions in this documentation on how to get set up and running, depending on your environment. That is **much** simpler than including these tools as dependencies and passing through and maintaining a never-ending maze of options.
 
