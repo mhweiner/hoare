@@ -54,12 +54,7 @@ function finish(specFiles: string[]) {
 
     printFileResults(testResultsByFile);
     printSummary(finalResults);
-    if (shouldExitWithError(finalResults)) {
-
-        console.log('exiting');
-        process.exit(1);
-
-    }
+    if (shouldExitWithError(finalResults)) process.exit(1);
 
 }
 

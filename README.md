@@ -1,25 +1,62 @@
+![text](docs/hoare-triple.png)
+
 # hoare
 
 [![Build Status](https://github.com/mhweiner/hoare/workflows/build/badge.svg)](https://github.com/mhweiner/hoare/actions)
 [![Release Status](https://github.com/mhweiner/hoare/workflows/release/badge.svg)](https://github.com/mhweiner/hoare/actions)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-A simple, opinionated, and all-inclusive unit test framework with everything you need to write GUTS (Good Unit Tests). Built-in module isolation, mocking, assertions, and code coverage.
+A simple and opinionated Javascript/Typescript testing framework designed to help you to write (and execute) simple, readable, and maintainable GUTS (Good Unit Tests). It is inspired by and named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
 
-- Out-of-the-box Typescript support
-- Async/await/promise support
-- Immutable module mocking without teardowns or code changes
-- Tap output, compatible with any tap reporter
-- Simple, opinionated assertions
-- Assertions for error handling
-- Does not pollute namespace, no globals like 'describe' or 'it'
-- Does not allow nesting for more readable code
+> There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
 
-## Examples
+- **Out-of-the-box Typescript support**
+  - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
+  - Handles compilation errors gracefully.
 
-See [examples](examples) directory for all examples.
 
-### Module Isolation
+- **Designed For Speed**
+  - Multi-process parallel test runner. Each spec file is run in its own process and runtime for speed and isolation benefits.
+
+
+- **Async/Await/Promise Support**
+  - No need for `plan()` or `end()`, or to wrap every test in catch blocks.
+
+
+- **Simple & Easy to Use**
+  - Simplified assertion API. You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
+  - Any stray `stdout`, errors, or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
+  - Built-in powerful diff visualization tool for strings and objects.
+
+
+- **Defensive**
+  - Uncaught errors and unhandled promise rejections will cause the test to fail.
+  - Any files without tests, or tests without assertions, result in a failed test.
+  - Strict and deep equality operator by default.
+
+
+- **Opinionated**
+  - No nesting of tests. This has the following benefits:
+    - Pressures programmers to break apart their code into smaller pieces.
+    - Test code becomes much simpler and easier to read and maintain.
+    - Output reporting becomes much simpler and easier to read and understand.
+  - No built-in `before()` and `after()`. This leads to messy design patterns and mistakes in test code. Most tests shouldn't require teardowns. Of course, you could still create your own.
+
+
+- **Robust & Reliable**
+  - The JS/TS ecosystem moves fast. This tool is designed with the goals of simplicity, modularity, and readability in order to remain maintainable. Breaking changes are strongly avoided. This package follows `semver`.
+  - Very small filesize, simple, and modular code written in Typescript with minimal dependencies.
+
+> Compositionality is THE way to control complexity.
+—Brian Beckman
+
+> Inside every large program, there is a small program trying to get out. - C. A. R. Hoare
+
+## Quick Examples
+
+See [demo](demo) or [src](src) directories for more examples.
+
+### Simple functional test
 
 _multiply.ts_
 ```typescript
@@ -61,6 +98,8 @@ test('exponent(): alternate reality where multiplication is actually addition', 
     assert.deepEqual(mockExp.exponent(3, 3), 9, 'exponent(3, 3) should be 9');
 });
 ```
+
+## Sample Output
 
 ## Installation
 
@@ -280,6 +319,18 @@ Whenever possible, it is highly recommended avoiding the need for teardown steps
 `isolate()` further helps out by throwing if it detects anything is wrong before it's too late. It will throw if any of the modules or properties are not resolvable, and if there are any unused (not imported by the subject).
 
 All that said, the NodeJS ecosystem is always rapidly changing, and it is possible this strategy may no longer work at some point in the future.
+
+## Why doesn't this package include module mocking and code coverage?
+
+Simplicity and separation of concerns. It's really easy for one to fixate on the ideal of a single package to solve everything. It's actually the idea I started with. However, one must be willing to let go of these ideals once it is clear that the disadvantages outweigh the benefits.
+
+Currently, there is a major shift in the Javascript world from CJS to ESM in how module resolution and loading works. These two are largely incompatible with each other. Instead, it would make more sense for `hoare` to stay agnostic to these tools, and allow people to use the tools they need, given their situation -- and to rely on that tool's documentation for configuration and changes. Their dependencies also remain their problem, not the maintainers of this package.
+
+Instead, we simply provide great instructions in this documentation on how to get set up and running, depending on your environment. That is **much** simpler than including these tools as dependencies and passing through and maintaining a never-ending maze of options.
+
+## Recommendations for writing Good Unit Tests
+
+> The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
 
 ## How to build locally
 
