@@ -1,8 +1,8 @@
 import {test} from '../src';
 import {helloworld} from './helloworld';
 
-test('helloworld()', (assert) => {
+test('should return "hello, world"', (assert) => {
 
-    assert.equal(helloworld(), 'hello, world', 'returns "hello, world"');
+    assert.equal(helloworld(), 'hello, world');
 
 });

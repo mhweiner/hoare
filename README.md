@@ -1,4 +1,4 @@
-![text](docs/hoare-triple.png)
+<img src="docs/hoare-triple.png" title="Hoare Triple" alt="Hoare Triple" width="300">
 
 # hoare
 
@@ -7,8 +7,6 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 A simple and opinionated Javascript/Typescript testing framework designed to help you to write (and execute) simple, readable, and maintainable GUTS (Good Unit Tests). It is inspired by and named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
-
-> There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
 
 - **Out-of-the-box Typescript support**
   - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
@@ -52,52 +50,50 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 
 > Inside every large program, there is a small program trying to get out. - C. A. R. Hoare
 
+> There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
+
+
 ## Quick Examples
 
 See [demo](demo) or [src](src) directories for more examples.
 
-### Simple functional test
+### Example 1: Hello World
 
-_multiply.ts_
+_helloworld.ts_
 ```typescript
-export function multiply(num1: number, num2: number) {
-    return num1 * num2;
+export function helloworld() {
+  return 'hello, world';
 }
 ```
-_exponent.ts_
+_helloworld.spec.ts_
 ```typescript
-import {multiply} from './multiply';
+import {test} from 'hoare';
+import {helloworld} from './helloworld';
 
-export function exponent(base: number, exp: number): number {
-    if (exp < 0) throw new Error('exponent must be >= 0');
-    switch (exp) {
-        case 0:
-            return 1;
-        case 1:
-            return base;
-        default:
-            return multiply(base, exponent(base, exp - 1));
-    }
-}
-```
-_exponent.spec.ts_
-```typescript
-import {isolate, test} from 'hoare';
-import * as exponentModule from './exponent'; //used only for typing
-
-test('exponent(): alternate reality where multiplication is actually addition', (assert) => {
-    //mock out ./mulitpy import
-    //`typeof exponentModule` is used for typing
-    const mockExp: typeof exponentModule = isolate('./exponent', {imports: [
-        ['./multiply', {multiply: (a: number, b: number) => a + b}]
-    ]});
-
-    assert.plan(4);
-    assert.deepEqual(mockExp.exponent(1, 0), 1, 'exponent(1, 0) should be 1');
-    assert.deepEqual(mockExp.exponent(2, 4), 8, 'exponent(2, 4) should be 8');
-    assert.deepEqual(mockExp.exponent(3, 3), 9, 'exponent(3, 3) should be 9');
+test('should return "hello, world"', (assert) => {
+  assert.equal(helloworld(), 'hello, world');
 });
 ```
+### Example 2: Module Mocking & Hoare Triple
+
+_helloworld.ts_
+```typescript
+import {}
+
+export function getMoviesByAuthor(author: string) {
+  
+}
+```
+_helloworld.spec.ts_
+```typescript
+import {test, mock, stub} from 'hoare';
+import {helloworld} from './helloworld';
+
+test('should return "hello, world"', (assert) => {
+  assert.equal(helloworld(), 'hello, world');
+});
+```
+
 
 ## Sample Output
 
@@ -371,3 +367,6 @@ This package follows [Semver](https://semver.org/) and [Conventional Commits](ht
 | `perf` | Bump the API's `patch` version number. |
 | `docs` | No version number change. |
 | `test` | No version number change. |
+
+## Inspirational Quotes
+
