@@ -8,43 +8,37 @@
 
 A simple and opinionated Javascript/Typescript testing framework designed to help you to write and execute simple, readable, and maintainable tests. 
 
-- **Out-of-the-box Typescript support**
-  - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
-  - Handles compilation errors gracefully.
+**Out-of-the-box Typescript support 🔒**
+- Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
+- Handles compilation errors gracefully.
 
+**Designed For Speed 🚀**
+- Multi-process parallel test runner. Each spec file is run in its own process and runtime for speed and isolation benefits.
 
-- **Designed For Speed**
-  - Multi-process parallel test runner. Each spec file is run in its own process and runtime for speed and isolation benefits.
+**Easy to Use 😃**
+- [Simplified assertion API](). You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
+- Any stray `stdout`, errors, or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
+- Built-in powerful diff visualization tool for strings and objects.
+- Clear documentation.
 
+**Defensive 🛡**
+- Uncaught errors and unhandled promise rejections will cause the test to fail.
+- Any files without tests, or tests without assertions, result in a failed test.
+- Strict and deep equality operator by default.
 
-- **Async/Await/Promise Support**
-  - No need for `plan()` or `end()`, or to wrap every test in catch blocks.
+**Opinionated 🎓**
+- No nesting of tests. This has the following benefits:
+  - Pressures programmers to break apart their code into smaller pieces.
+  - Test code becomes much simpler and easier to read and maintain.
+  - Output reporting becomes much simpler and easier to read and understand.
+- No built-in `before()` and `after()`. This leads to messy design patterns and mistakes in test code. Most tests shouldn't require teardowns. Of course, you could still create your own.
 
+**Robust & Reliable 💪**
+- Small, simple, and modular codebase written in Typescript with minimal dependencies.
+- Breaking changes are discouraged. This package follows `semver`.
 
-- **Easy to Use**
-  - Simplified assertion API. You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
-  - Any stray `stdout`, errors, or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
-  - Built-in powerful diff visualization tool for strings and objects.
-
-
-- **Defensive**
-  - Uncaught errors and unhandled promise rejections will cause the test to fail.
-  - Any files without tests, or tests without assertions, result in a failed test.
-  - Strict and deep equality operator by default.
-
-
-- **Opinionated**
-  - No nesting of tests. This has the following benefits:
-    - Pressures programmers to break apart their code into smaller pieces.
-    - Test code becomes much simpler and easier to read and maintain.
-    - Output reporting becomes much simpler and easier to read and understand.
-  - No built-in `before()` and `after()`. This leads to messy design patterns and mistakes in test code. Most tests shouldn't require teardowns. Of course, you could still create your own.
-
-
-- **Robust & Reliable**
-  - Small, simple, and modular codebase written in Typescript with minimal dependencies.
-  - Breaking changes are discouraged. This package follows `semver`.
-
+**Modern Langauge Features ✨**
+  - Async/Await/Promise Support
 
 ## Namesake
 
