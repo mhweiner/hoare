@@ -8,8 +8,6 @@
 
 A simple and opinionated Javascript/Typescript testing framework designed to help you to write and execute simple, readable, and maintainable tests. 
 
-`hoare` is inspired by and named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
-
 - **Out-of-the-box Typescript support**
   - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
   - Handles compilation errors gracefully.
@@ -47,10 +45,12 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
   - Small, simple, and modular codebase written in Typescript with minimal dependencies.
   - Breaking changes are discouraged. This package follows `semver`.
 
-> Compositionality is THE way to control complexity.
-—Brian Beckman
 
-> Inside every large program, there is a small program trying to get out. - C. A. R. Hoare
+## Namesake
+
+`hoare` is named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
+
+> Inside every large program, there is a small program trying to get out. — C. A. R. Hoare
 
 > There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
 
