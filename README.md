@@ -40,20 +40,11 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 **Modern Langauge Features ✨**
   - Async/Await/Promise Support
 
-## Namesake
-
-`hoare` is named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
-
-> Inside every large program, there is a small program trying to get out. — C. A. R. Hoare
-
-> There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
-
-
-## Quick Examples
+## Example Tests
 
 See [demo](demo) or [src](src) directories for more examples.
 
-### Example 1: Hello World
+### Hello World
 
 _helloworld.ts_
 ```typescript
@@ -70,7 +61,7 @@ test('should return "hello, world"', (assert) => {
   assert.equal(helloworld(), 'hello, world');
 });
 ```
-### Example 2: Valid Word
+### Valid Word
 
 _isValidWord.ts_
 ```typescript
@@ -89,33 +80,20 @@ async function getValidWords() {
 _isValidWord.spec.ts_
 ```typescript
 import {test, mock} from '../src';
-import * as mod from './isValidWord'; // just used for type
+import * as mod from './isValidWord'; // just used for typing
+
+const dict = ['dog', 'cat', 'fish'].join('\n');
+const mockMod: typeof mod = mock('./isValidWord', {
+    'fs/promises': {readFile: () => Promise.resolve(dict)},
+});
 
 test('valid word returns true', async (assert) => {
-  // given
-  const dict = ['dog', 'cat', 'fish'].join('\n');
-  const mockMod: typeof mod = mock('./isValidWord', {
-    'fs/promises': {readFile: () => Promise.resolve(dict)},
-  });
-  
-  // when
   const result = await mockMod.isValidWord('dog');
-  
-  // then
   assert.equal(result, true);
 });
 
 test('invalid word returns false', async (assert) => {
-  // given
-  const dict = ['dog', 'cat', 'fish'].join('\n');
-  const mockMod: typeof mod = mock('./isValidWord', {
-    'fs/promises': {readFile: () => Promise.resolve(dict)},
-  });
-  
-  // when
   const result = await mockMod.isValidWord('nope');
-  
-  // then
   assert.equal(result, false);
 });
 
@@ -159,52 +137,18 @@ test('invalid word returns false', async (assert) => {
 
 ## Basic Usage
 
-Write your tests with a `.spec.ts` extension. To run your tests and get a coverage report, simply run `npm test`.
-
-_foo.ts_
-```typescript
-export function foo() { return 'flooble'; }
-```
-_foo.spec.ts_
-```typescript
-import {test} from 'hoare';
-import {foo} from './foo';
-
-test('foo()', async (assert) => {
-    assert.plan(1);
-    assert.deepEqual(foo(), 'flooble', 'should return "flooble"');
-});
-```
+1. Write your tests with a `.spec.ts` or `.spec.js` extension (although any extension will work, as long as it matches your glob in your `npm test` script). We highly recommend you put your spec files alongside your code, and not in a separate folder.
+2. Simply run `npm test`.
 
 ## API
 
-### `test(title: string, cb: (assert: Assert) => void, options?: TestOptions): void`
+### `test(title: string, cb: (assert: Assert) => void): void`
 
 Add a test to be picked up by the test runner. `cb` can be an `async` function or ES6 Promise.
 
-### `skip(title: string, cb: (assert: Assert) => void, options?: TestOptions): void`
+### `mock(modulePath: string, mocks: object): module`
 
-An alias for `test` with `markAs = 'skip'`. 
-
-### `only(title: string, cb: (assert: Assert) => void, options?: TestOptions): void`
-
-An alias for `test` with `markAs = 'only'`. 
-
-### `suite(suiteTitle: string): {test, skip, only}`
-
-Creates a grouping for tests. It simply appends whatever is passed as `suiteTitle` to each test in the suite. Returns an object with `test()`, `skip()`, and `only()` functions.
-
-### `isolate(modulePath: string, mocks: Mocks): module`
-
-`Mocks` interface:
-```
-{
-    imports?: [string, any][] //must be relative to module being isolated
-    props?: [string, any][] //only works if module uses "self-import" technique
-}
-```
-
-Returns a module with Dependency Injection for `modulePath`, as specified by the `mocks` argument. As a side effect, the module cache is deleted (before and after) for module specified by `modulePath` and all modules specified in `mocks.imports`. This should not matter during unit testing, but it is something to be aware of. This method (along with the rest of this package) should not be used in production code.
+Returns a module with Dependency Injection for `modulePath`, as specified by the `mocks` argument. As a side effect, the module cache is deleted (before and after) for module specified by `modulePath` and all modules specified in `mocks`. This should not matter during unit testing, but it is something to be aware of. This should not be used in production code.
 
 You should pass as a string the same thing you would pass to an `import` statement or `require`. The only caveats are that 1) any relative paths be relative to the module being returned, and 2) it must only be a direct dependency of that module (will not work recursively, including re-exported modules).
 
@@ -212,7 +156,6 @@ This function throws if any of the modules or properties are not resolvable, or 
 ```
 Error: The following imports were not found in module ./exponent: 
         path
-
 ```
 
 Example usage:
@@ -220,67 +163,20 @@ Example usage:
 ```typescript
 import * as fooModule from './foo'; //not emitted since only used for type
 
-const m: typeof fooModule = isolate('./foo', {
-    imports: [
-        ['./bar', {bar: () => 'fake bar'}]
-    ]
+const m: typeof fooModule = mock('./foo', {
+    './bar': {bar: () => 'fake bar'},
 });
 ```
 
-You can use this function recursively for partial mocking of nested dependencies:
+You can use this function recursively for partial mocking of nested dependencies (although you should probably think twice about this):
 
 ```typescript
-const m = isolate('./foo', {
-    imports: [
-        ['.', isolate('./bar', {
-            imports: [
-                ['bob', () => 'fake bob']
-            ]       
-        })]
-    ]
+const m = mock('./foo', {
+    '.': mock('.bar', {
+        'bob': () => 'fake bob'
+    }),
 });
 ```
-
-#### Partial mocking (`mocks.props`)
-
-Unfortunately, partial mocking with `mocks.props` requires a slight change in the code. In order to be able to properly mock out a module property, it must reference the "live view" module, not just a local function. Let's call this the "self-import" technique:
-
-_helloworld.ts_
-```typescript
-import * as self from './helloworld';
-
-export function hello() {
-    return 'hello';
-}
-
-export function world() {
-    return 'world';
-}
-
-export function greet() {
-    return `${self.hello()} ${self.world()}`;
-}
-```
-
-Then, you can do this:
-
-```typescript
-import {isolate} from 'hoare';
-import * as helloWorldModule from './helloworld';
-
-const mocked: typeof helloWorldModule = isolate('./helloworld', {
-    props: [
-        ['hello', () => 'greetings'],
-        ['world', () => 'earthling'],
-    ],
-});
-    
-console.log(mocked.greet()); //greetings earthling
-console.log(helloWorldModule.greet());//hello world
-```
-"Props" (pun intended) goes to [this chap](https://stackoverflow.com/questions/54318830/why-does-mutating-a-module-update-the-reference-if-calling-that-module-from-anot) on SO.
-
-For further reading, please see [Mocking strategy and a disclaimer](#mocking-strategy-and-a-disclaimer).
 
 ### `stub(): SinonStub`
 
@@ -290,11 +186,7 @@ Returns a [sinon](https://sinonjs.org/) stub.
 
 ### `Assert`
 
-#### `plan(n: number): void`
-
-Asserts that there must be a certain number of tests. Any less and the test will time out. Any more and the test will fail immediately.
-
-#### `deepEqual(actual: any, expected: any, msg?: string): void`
+#### `equal(actual: any, expected: any, msg?: string): void`
 
 The same as `tape`'s `deepEqual` function which asserts deep and strict equality on objects or primitives. Unless your code is non-deterministic, [this should be the only assertion you need](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f). We include others here for convenience, but the goal is to keep the number of assertions very small.
 
@@ -305,55 +197,29 @@ Asserts that both errors are similar. Stack traces are ignored. It checks for bo
 
 Both errors **must** be an instance of `Error`, or an error will be thrown. See [validate.spec.ts](examples/validate.spec.ts) example.
 
-### `TestOptions`
+## Inspiration & Attribution
 
-#### `timeout?: number`
+`hoare` is named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
 
-Test will time out after this threshold.
+After years of working on mission and safety-critical software in healthcare, education and e-commerce industries, I have come to appreciate the importance of clean, readable, and maintainable unit tests and the profound effect they can have on the development of the code itself.
 
-#### `markAs?: 'only' | 'skip'`
+Good unit tests force programmers to break apart their code into smaller, more easily testable parts. Unfortunately, testing frameworks have become ever-complex to address deficiencies in design, when they should be doing the opposite. I have found that even properly encapsulated unit tests tend be over-complex and difficult to reason about.
 
-It is recommended you use aliases `only()` and `skip()` instead for readability and consistenecy.
+A unit test should act as a **_specification_** for the behavior of the code that we're testing. The Hoare Triple, written as `{P} S {Q}`, provides a way for us to specify this expected behavior. Each part is a logical statement that must be true for the test to pass: `pre-condition`, `execution`, and `post-condition`. The Hoare Triple is an easy way to reason about how a piece of code should behave, and a good unit test should clearly communicate this to the reader. I often use `given`, `when`, `then` in my unit tests.
 
-### `Mocks`
+Difficult-to-read unit tests also increase the likelihood of lack of maintenance, abandonment, or errors in the test itself. Bad tests are actually worse than not having a test at all&mdash;they could give false confidence or just add friction.
 
-#### `imports?: [string, any][]`
+I have been a fan and longtime user of [tape](), and this package takes much inspiration from it. Inspiration has also been taken from [AVA]() and [node-tap]().
 
-Must be relative to module being isolated.
+I also must give huge credit to this article written by blah:
 
-#### `props?: [string, any][]`
 
-Only works if module uses "self-import" technique (see [isolate(): partial mocking](#partial-mocking-mocksprops)).
+> Inside every large program, there is a small program trying to get out. — C. A. R. Hoare
 
-## Mocking strategy and a disclaimer
-
-Mocking consists of two different activities&mdash;dependency injection and the creation of "stub/mock objects" which are meant to mimic dependencies or provide instrumentation for the System Under Test (SUT). The latter is fairly straightforward, which is not covered here. The former, however, can by tricky, especially for node applications.
-
-In general, _Dependency Injection (DI)_ means being able to swap out one dependency for another during runtime. This is what allows you to "isolate" your SUT from other code (namely, its dependencies). This is what makes unit testing possible for systems that have dependencies, without requiring some kind of special transpilation or reflection.
-
-There are several methods to achieve this. One approach is to simply pass all of these dependencies as arguments to a function or object constructor. This is what is commonly referred to as DI. There are also frameworks that help manage this for you, but many come with a steep learning curve and a huge buy-in. This project offers a much simpler, yet less robust alternative for node projects, `isolate()`.
-
-As it turns out, we can enhance CommonJS to create our own utility to do DI into node modules. This is possible due to fact that `Module.require()` can be "overridden". Other libraries like [rewire](https://www.npmjs.com/package/rewire) and [proxyquire](https://www.npmjs.com/package/proxyquire) take a similar approach. Unfortunately, node modules are singletons&mdash;meaning, once they are created, they are immutable, and they exist globally. This is incompatible with the "atomic tests" principle. We can get around this by deleting the cached module before and after, but only for the modules that we care about. This way, there should be no pollution between tests, obviating the need for mutation or teardown steps.
-
-In the past, libraries like `sinon` utilized module export mutation. However, since ES6 modules are immutable, this no longer works. In any case, mutating global singletons is not the best choice and always had limitations.
-
-Whenever possible, it is highly recommended avoiding the need for teardown steps in unit tests. For one, they are easy to forget. Most importantly, it's not always obvious when you have forgotten one or got it wrong. You may have faulty tests that still pass, or unexpected behavior that is difficult to debug.
-
-`isolate()` further helps out by throwing if it detects anything is wrong before it's too late. It will throw if any of the modules or properties are not resolvable, and if there are any unused (not imported by the subject).
-
-All that said, the NodeJS ecosystem is always rapidly changing, and it is possible this strategy may no longer work at some point in the future.
-
-## Why doesn't this package include module mocking and code coverage?
-
-It's really easy for one to fixate on the ideal of a single package to solve everything. It's actually the idea I started with. However, engineers must be willing to let go of ideals once it is clear that the disadvantages outweigh the benefits.
-
-Currently, there is a major shift in the Javascript world from CJS to ESM, which is how module resolution and loading works. Instead, it would make more sense for `hoare` to stay agnostic to these tools, and allow people to use the tools they need, given their situation -- and to rely on that tool's documentation for configuration and changes. Their dependencies also remain their problem, not the maintainers of this package.
-
-Instead, we simply provide great instructions in this documentation on how to get set up and running, depending on your environment. That is **much** simpler than including these tools as dependencies and passing through and maintaining a never-ending maze of options.
-
-## Recommendations for writing Good Unit Tests
+> There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
 
 > The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
+
 
 ## How to build locally
 
@@ -371,7 +237,7 @@ npm test
 
 Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
 
-## Releases
+### Releases
 
 This package follows [Semver](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to determine how to version the codebase. This repo uses Github Actions to publish a release to npm.
 
@@ -394,6 +260,4 @@ This package follows [Semver](https://semver.org/) and [Conventional Commits](ht
 | `perf` | Bump the API's `patch` version number. |
 | `docs` | No version number change. |
 | `test` | No version number change. |
-
-## Inspirational Quotes
 
