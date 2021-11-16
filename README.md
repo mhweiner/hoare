@@ -100,30 +100,41 @@ test('invalid word returns false', async (assert) => {
 });
 ```
 
-# Installation
+# Installation & Setup (Typical)
 
 1. Install from npm along with peer dependencies:
     ```console
     npm i typescript ts-node c8 hoare -DE
     ```
-2. Create an `.c8rc.json` file in the root of your project (or use another config option), following the documentation from c8 for code coverage. See our [.c8rc.json](.c8rc.json) file as an example.
+2. Create an `.c8rc.json` file in the root of your project (or use another config option), following the [c8 documentation](https://github.com/bcoe/c8). For an example, see our [.c8rc.json](.c8rc.json) file.
 3. Add the following command to your `package.json` `scripts` directive:
-```
+```json
+{
   "test": "c8 hoare 'src/**/*.spec.@(ts|js)' && c8 report -r text -r html"
+}
 ```
 
-The above command will do the following:
+The above command, along with our [.c8rc.json](.c8rc.json) file settings, will do the following:
 
 1. Run `c8` for code coverage.
-2. Run any test files that match the [glob](https://github.com/terkelg/tiny-glob). In this case, it's any `.spec.js` or `.spec.ts` file within the `src` folder, recursively.
+2. Run any  `.spec.js` or `.spec.ts` file within the `src` folder, recursively.
 3. If the test is successful, generate both an HTML and text coverage report.
 
-You can customize the above command to your situation.
+You can customize the above command to your situation. The string in quotes is a [glob](https://github.com/terkelg/tiny-glob).
 
 # Basic Usage
 
-1. Write your tests with a `.spec.ts` or `.spec.js` extension (although any extension will work, as long as it matches your glob in your `npm test` script). We highly recommend you put your spec files alongside your code, and not in a separate folder.
+1. Write your tests with a `.spec.ts` or `.spec.js` extension (although any extension will work, as long as it matches your glob in your `npm test` script and your coverage configuration). We recommend you put your source code in a `src` folder and your spec files alongside the source, and not in a separate test folder.
 2. Simply run `npm test`.
+
+Example:
+
+```
+dist
+src
+  foo.ts
+  foo.spec.ts
+```
 
 # API
 
