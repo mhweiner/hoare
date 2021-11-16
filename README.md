@@ -14,9 +14,10 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 
 **Designed For Speed 🚀**
 - Multi-process parallel test runner. Each spec file is run in its own process and runtime for speed and isolation benefits.
+- Simple means fast.
 
 **Easy to Use 😃**
-- [Simplified assertion API](). You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
+- [Very simple assertion API](). You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
 - Any stray `stdout`, errors, or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
 - Built-in powerful diff visualization tool for strings and objects.
 - Clear documentation.
@@ -36,23 +37,11 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 **Robust & Reliable 💪**
 - Small, simple, and modular codebase written in Typescript with minimal dependencies.
 - Breaking changes are discouraged. This package follows `semver`.
+- Largely agnostic of other tools, `hoare` doesn't try to do too much.
 
-**Modern Langauge Features ✨**
+**Modern Language Features ✨**
   - Async/Await/Promise Support
-
-| Table of Contents |
-|-------------------|
-| [Examples](#examples) |
-| [Diff Visual Tool]() |
-| [Installation]() |
-| [Basic Usage]() |
-| [API]() |
-| [Interfaces]() |
-| [Inspiration & Attribution]() |
-| [Local Development]() |
-| [Running Tests]() |
-| [How to Contribute]() |
-| [License]() |
+  - CJS & ESM support
 
 # Examples
 
@@ -120,11 +109,11 @@ WIP
 
 1. Install from npm along with peer dependencies:
 
-    ```shell script
+    ```console
     npm i typescript ts-node c8 hoare -DE
     ```
 2. Create an `.c8rc.json` file in the root of your project with the following:
-    ```
+    ```json
     {
         "extends": "@istanbuljs/nyc-config-typescript",
         "all": true,
@@ -141,11 +130,10 @@ WIP
         ]
     }
     ```
-3. Add "hoare" command to your `npm test` script:
-```
-"scripts": {
-    "test": "hoare"
-    ...
+3. Add the following command to your `package.json` `scripts` directive:
+```json
+{
+  "test": "hoare"
 }
 ```
 
@@ -156,55 +144,21 @@ WIP
 
 # API
 
-## `test(title: string, cb: (assert: Assert) => void): void`
+## Methods
 
-Add a test to be picked up by the test runner. `cb` can be an `async` function or ES6 Promise.
+### `test(title: string, cb: (assert: Assert) => void): void`
 
-## `mock(modulePath: string, mocks: object): module`
+Create a test. `cb` can be a normal function, `async`, or return an ES6 Promise.
 
-Returns a module with Dependency Injection for `modulePath`, as specified by the `mocks` argument. As a side effect, the module cache is deleted (before and after) for module specified by `modulePath` and all modules specified in `mocks`. This should not matter during unit testing, but it is something to be aware of. This should not be used in production code.
+## Interfaces
 
-You should pass as a string the same thing you would pass to an `import` statement or `require`. The only caveats are that 1) any relative paths be relative to the module being returned, and 2) it must only be a direct dependency of that module (will not work recursively, including re-exported modules).
+### `Assert`
 
-This function throws if any of the modules or properties are not resolvable, or if there are any unused (not imported by the subject):
-```
-Error: The following imports were not found in module ./exponent: 
-        path
-```
-
-Example usage:
-
-```typescript
-import * as fooModule from './foo'; //not emitted since only used for type
-
-const m: typeof fooModule = mock('./foo', {
-    './bar': {bar: () => 'fake bar'},
-});
-```
-
-You can use this function recursively for partial mocking of nested dependencies (although you should probably think twice about this):
-
-```typescript
-const m = mock('./foo', {
-    '.': mock('.bar', {
-        'bob': () => 'fake bob'
-    }),
-});
-```
-
-## `stub(): SinonStub`
-
-Returns a [sinon](https://sinonjs.org/) stub.
-
-# Interfaces
-
-## `Assert`
-
-### `equal(actual: any, expected: any, msg?: string): void`
+#### `equal(actual: any, expected: any, msg?: string): void`
 
 The same as `tape`'s `deepEqual` function which asserts deep and strict equality on objects or primitives. Unless your code is non-deterministic, [this should be the only assertion you need](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f). We include others here for convenience, but the goal is to keep the number of assertions very small.
 
-### `errorsEquivalent(err1: any, err2: any, msg?: string)`
+#### `errorsEquivalent(err1: any, err2: any, msg?: string)`
 
 Asserts that both errors are similar. Stack traces are ignored. It checks for both non-enumerable properties
 (ie, `name` and `message`) and enumerable properties (anything added by extending `Error`).
@@ -234,26 +188,29 @@ I also must give huge credit to this article written by blah:
 
 > The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
 
-# Local Development
+# Contribution
 
-```bash
+## Local Development
+
+### Build:
+
+```console
 npm i
 ```
 
-# Running tests
+### Tests:
 
-```shell script
+```console
 npm test
 ```
 
-# How to Contribute
+### Pull Requests
 
 Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
 
-## Releases
+### Releases
 
 This package follows [Semver](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to determine how to version the codebase. This repo uses Github Actions to publish a release to npm.
-
 
 | Branch | Channel |
 | ----------------------- | ----------- |
@@ -273,8 +230,6 @@ This package follows [Semver](https://semver.org/) and [Conventional Commits](ht
 | `perf` | Bump the API's `patch` version number. |
 | `docs` | No version number change. |
 | `test` | No version number change. |
-
-
 
 # License
 
