@@ -8,8 +8,6 @@
 
 A simple and opinionated Javascript/Typescript testing framework designed to help you to write and execute simple, readable, and maintainable tests. 
 
-Named after Sir Tony Hoare (aka C. A. R. Hoare), and the Hoare Triple, the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
-
 **Out-of-the-box Typescript support 🔒**
 - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
 - Handles compilation errors gracefully.
@@ -51,17 +49,16 @@ Named after Sir Tony Hoare (aka C. A. R. Hoare), and the Hoare Triple, the corne
 | [API]() |
 | [Interfaces]() |
 | [Inspiration & Attribution]() |
-| [Sir Tony Hoare Quotes]() |
 | [Local Development]() |
 | [Running Tests]() |
 | [How to Contribute]() |
 | [License]() |
 
-## Examples
+# Examples
 
 See [demo](demo) or [src](src) directories for more examples.
 
-### Hello World
+## Hello World
 
 _helloworld.ts_
 ```typescript
@@ -78,7 +75,7 @@ test('should return "hello, world"', (assert) => {
   assert.equal(helloworld(), 'hello, world');
 });
 ```
-### Valid Word
+## Valid Word
 
 _isValidWord.ts_
 ```typescript
@@ -115,11 +112,11 @@ test('invalid word returns false', async (assert) => {
 });
 ```
 
-## Diff Visual Tool
+# Diff Visual Tool
 
 WIP
 
-## Installation
+# Installation
 
 1. Install from npm along with peer dependencies:
 
@@ -152,18 +149,18 @@ WIP
 }
 ```
 
-## Basic Usage
+# Basic Usage
 
 1. Write your tests with a `.spec.ts` or `.spec.js` extension (although any extension will work, as long as it matches your glob in your `npm test` script). We highly recommend you put your spec files alongside your code, and not in a separate folder.
 2. Simply run `npm test`.
 
-## API
+# API
 
-### `test(title: string, cb: (assert: Assert) => void): void`
+## `test(title: string, cb: (assert: Assert) => void): void`
 
 Add a test to be picked up by the test runner. `cb` can be an `async` function or ES6 Promise.
 
-### `mock(modulePath: string, mocks: object): module`
+## `mock(modulePath: string, mocks: object): module`
 
 Returns a module with Dependency Injection for `modulePath`, as specified by the `mocks` argument. As a side effect, the module cache is deleted (before and after) for module specified by `modulePath` and all modules specified in `mocks`. This should not matter during unit testing, but it is something to be aware of. This should not be used in production code.
 
@@ -195,26 +192,26 @@ const m = mock('./foo', {
 });
 ```
 
-### `stub(): SinonStub`
+## `stub(): SinonStub`
 
 Returns a [sinon](https://sinonjs.org/) stub.
 
-## Interfaces
+# Interfaces
 
-### `Assert`
+## `Assert`
 
-#### `equal(actual: any, expected: any, msg?: string): void`
+### `equal(actual: any, expected: any, msg?: string): void`
 
 The same as `tape`'s `deepEqual` function which asserts deep and strict equality on objects or primitives. Unless your code is non-deterministic, [this should be the only assertion you need](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f). We include others here for convenience, but the goal is to keep the number of assertions very small.
 
-#### `errorsEquivalent(err1: any, err2: any, msg?: string)`
+### `errorsEquivalent(err1: any, err2: any, msg?: string)`
 
 Asserts that both errors are similar. Stack traces are ignored. It checks for both non-enumerable properties
 (ie, `name` and `message`) and enumerable properties (anything added by extending `Error`).
 
 Both errors **must** be an instance of `Error`, or an error will be thrown. See [validate.spec.ts](examples/validate.spec.ts) example.
 
-## Inspiration & Attribution
+# Inspiration & Attribution
 
 `hoare` is named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
 
@@ -230,7 +227,6 @@ I have been a fan and longtime user of [tape](), and this package takes much ins
 
 I also must give huge credit to this article written by blah:
 
-## Sir Tony Hoare Quotes
 
 > Inside every large program, there is a small program trying to get out. — C. A. R. Hoare
 
@@ -238,23 +234,23 @@ I also must give huge credit to this article written by blah:
 
 > The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
 
-## Local Development
+# Local Development
 
 ```bash
 npm i
 ```
 
-## Running tests
+# Running tests
 
 ```shell script
 npm test
 ```
 
-## How to Contribute
+# How to Contribute
 
 Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
 
-### Releases
+## Releases
 
 This package follows [Semver](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to determine how to version the codebase. This repo uses Github Actions to publish a release to npm.
 
@@ -280,7 +276,7 @@ This package follows [Semver](https://semver.org/) and [Conventional Commits](ht
 
 
 
-## License
+# License
 
 MIT &copy; Marc H. Weiner
 
