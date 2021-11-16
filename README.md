@@ -189,21 +189,11 @@ I have been a longtime fan of [tape](https://github.com/substack/tape) for its s
 
 # Contribution
 
-## Local Development
-
-### Build:
-
 ```console
 npm i
-```
-
-### Tests:
-
-```console
 npm test
+npm lint
 ```
-
-## Pull Requests
 
 Issue a PR against `master` and request review from a lead maintainer. Make sure all tests pass and coverage is good.
 
