@@ -1,4 +1,4 @@
-<img src="docs/hoare-triple.png" title="Hoare Triple" alt="Hoare Triple" width="200">
+<img src="docs/hoare-triple.png" title="Hoare triple" alt="Hoare triple" width="200">
 
 # hoare
 
@@ -9,7 +9,7 @@
 A simple and opinionated Javascript/Typescript testing framework designed to help you to write and execute simple, readable, and maintainable tests. 
 
 **Out-of-the-box Typescript support 🔒**
-- Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
+- Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8](https://github.com/bcoe/c8) for code coverage.
 - Handles compilation errors gracefully.
 
 **Designed For Speed 🚀**
@@ -17,9 +17,9 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 - Simple means fast.
 
 **Easy to Use 😃**
-- [Very simple assertion API](). You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
+- [Very simple assertion API](#api). You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
 - Any stray `stdout`, errors, or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
-- Built-in powerful diff visualization tool for strings and objects.
+- Built-in [powerful diff visualization tool](#visual-diff-tool) for strings and objects.
 - Clear documentation.
 
 **Defensive 🛡**
@@ -101,7 +101,7 @@ test('invalid word returns false', async (assert) => {
 });
 ```
 
-# Diff Visual Tool
+# Visual Diff Tool
 
 WIP
 
@@ -148,7 +148,7 @@ WIP
 
 ### `test(title: string, cb: (assert: Assert) => void): void`
 
-Create a test. `cb` can be a normal function, `async`, or return an ES6 Promise.
+Create a test. `cb` can be an `async` function.
 
 ## Interfaces
 
@@ -156,7 +156,7 @@ Create a test. `cb` can be a normal function, `async`, or return an ES6 Promise.
 
 #### `equal(actual: any, expected: any, msg?: string): void`
 
-The same as `tape`'s `deepEqual` function which asserts deep and strict equality on objects or primitives. Unless your code is non-deterministic, [this should be the only assertion you need](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f). We include others here for convenience, but the goal is to keep the number of assertions very small.
+Asserts deep and strict equality on objects or primitives. Unless your code is non-deterministic, [this should be the only assertion you need](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f).
 
 #### `errorsEquivalent(err1: any, err2: any, msg?: string)`
 
@@ -165,28 +165,27 @@ Asserts that both errors are similar. Stack traces are ignored. It checks for bo
 
 Both errors **must** be an instance of `Error`, or an error will be thrown. See [validate.spec.ts](examples/validate.spec.ts) example.
 
-# Inspiration & Attribution
+# Attribution
 
-`hoare` is named after Sir Tony Hoare (aka C. A. R. Hoare), and the [Hoare Triple](), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
-
-After years of working on mission and safety-critical software in healthcare, education and e-commerce industries, I have come to appreciate the importance of clean, readable, and maintainable unit tests and the profound effect they can have on the development of the code itself.
-
-Good unit tests force programmers to break apart their code into smaller, more easily testable parts. Unfortunately, testing frameworks have become ever-complex to address deficiencies in design, when they should be doing the opposite. I have found that even properly encapsulated unit tests tend be over-complex and difficult to reason about.
-
-A unit test should act as a **_specification_** for the behavior of the code that we're testing. The Hoare Triple, written as `{P} S {Q}`, provides a way for us to specify this expected behavior. Each part is a logical statement that must be true for the test to pass: `pre-condition`, `execution`, and `post-condition`. The Hoare Triple is an easy way to reason about how a piece of code should behave, and a good unit test should clearly communicate this to the reader. I often use `given`, `when`, `then` in my unit tests.
-
-Difficult-to-read unit tests also increase the likelihood of lack of maintenance, abandonment, or errors in the test itself. Bad tests are actually worse than not having a test at all&mdash;they could give false confidence or just add friction.
-
-I have been a fan and longtime user of [tape](), and this package takes much inspiration from it. Inspiration has also been taken from [AVA]() and [node-tap]().
-
-I also must give huge credit to this article written by blah:
-
-
-> Inside every large program, there is a small program trying to get out. — C. A. R. Hoare
+`hoare` is named after [Sir Tony Hoare](https://en.wikipedia.org/wiki/Tony_Hoare) (aka C. A. R. Hoare), and the [Hoare triple](https://en.wikipedia.org/wiki/Hoare_logic), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
 
 > There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
 
+After years of working on[ safety-critical](https://en.wikipedia.org/wiki/Safety-critical_system) and mission-critical software in healthcare, education and e-commerce, I have come to appreciate the importance of clean, readable, and maintainable unit tests and the profound effect they can have on the development of the code itself.
+
 > The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
+
+Good unit tests force programmers to break apart their code into smaller, more easily testable parts. Unfortunately, testing frameworks have become ever-complex to address deficiencies in design, when they should be doing the opposite. I have found that even properly encapsulated unit tests tend be over-complex and difficult to reason about.
+
+> Inside every large program, there is a small program trying to get out. — C. A. R. Hoare
+
+A unit test should act as a **_specification_** for the behavior of the code that we're testing. The Hoare triple, written as `{P} S {Q}`, provides a way for us to specify this expected behavior. Each part is a logical statement that must be true for the test to pass: `pre-condition`, `execution`, and `post-condition`. The Hoare triple is an easy way to reason about how a piece of code should behave, and a good unit test should clearly communicate this to the reader. I often use `given`, `when`, `then` in my unit tests.
+
+Difficult-to-read unit tests also increase the likelihood of lack of maintenance, abandonment, or errors in the test itself. Bad tests are actually worse than not having a test at all&mdash;they could give false confidence or just add friction.
+
+One of my biggest sources of inspiration is [Rethinking Unit Test Assertions](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f) by [Eric Elliot](https://medium.com/@_ericelliott).
+
+I have been a longtime fan of [tape](https://github.com/substack/tape) for its simplicity, and it was influential in this utility. Inspiration has also been taken from [AVA](https://github.com/avajs/ava) and [node-tap](https://github.com/tapjs/node-tap).
 
 # Contribution
 
@@ -204,11 +203,11 @@ npm i
 npm test
 ```
 
-### Pull Requests
+## Pull Requests
 
-Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
+Issue a PR against `master` and request review from a lead maintainer. Make sure all tests pass and coverage is good.
 
-### Releases
+## Releases
 
 This package follows [Semver](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to determine how to version the codebase. This repo uses Github Actions to publish a release to npm.
 
