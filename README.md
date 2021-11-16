@@ -103,16 +103,22 @@ test('invalid word returns false', async (assert) => {
 # Installation & Setup (Typical)
 
 1. Install from npm along with peer dependencies:
+
     ```console
     npm i typescript ts-node c8 hoare -DE
     ```
+   
+
 2. Create an `.c8rc.json` file in the root of your project (or use another config option), following the [c8 documentation](https://github.com/bcoe/c8). For an example, see our [.c8rc.json](.c8rc.json) file.
+
+
 3. Add the following command to your `package.json` `scripts` directive:
-```json
-{
-  "test": "c8 hoare 'src/**/*.spec.@(ts|js)' && c8 report -r text -r html"
-}
-```
+
+    ```json
+    {
+      "test": "c8 hoare 'src/**/*.spec.@(ts|js)' && c8 report -r text -r html"
+    }
+    ```
 
 The above command, along with our [.c8rc.json](.c8rc.json) file settings, will do the following:
 
