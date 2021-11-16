@@ -8,6 +8,8 @@
 
 A simple and opinionated Javascript/Typescript testing framework designed to help you to write and execute simple, readable, and maintainable tests. 
 
+Named after Sir Tony Hoare (aka C. A. R. Hoare), and the Hoare Triple, the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
+
 **Out-of-the-box Typescript support 🔒**
 - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8]() for code coverage.
 - Handles compilation errors gracefully.
@@ -49,6 +51,7 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 | [API]() |
 | [Interfaces]() |
 | [Inspiration & Attribution]() |
+| [Sir Tony Hoare Quotes]() |
 | [Local Development]() |
 | [Running Tests]() |
 | [How to Contribute]() |
@@ -227,6 +230,7 @@ I have been a fan and longtime user of [tape](), and this package takes much ins
 
 I also must give huge credit to this article written by blah:
 
+## Sir Tony Hoare Quotes
 
 > Inside every large program, there is a small program trying to get out. — C. A. R. Hoare
 
