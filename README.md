@@ -40,7 +40,21 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 **Modern Langauge Features ✨**
   - Async/Await/Promise Support
 
-## Example Tests
+| Table of Contents |
+|-------------------|
+| [Examples](#examples) |
+| [Diff Visual Tool]() |
+| [Installation]() |
+| [Basic Usage]() |
+| [API]() |
+| [Interfaces]() |
+| [Inspiration & Attribution]() |
+| [Local Development]() |
+| [Running Tests]() |
+| [How to Contribute]() |
+| [License]() |
+
+## Examples
 
 See [demo](demo) or [src](src) directories for more examples.
 
@@ -79,7 +93,7 @@ async function getValidWords() {
 ```
 _isValidWord.spec.ts_
 ```typescript
-import {test, mock} from '../src';
+import {test, mock} from 'hoare';
 import * as mod from './isValidWord'; // just used for typing
 
 const dict = ['dog', 'cat', 'fish'].join('\n');
@@ -96,38 +110,38 @@ test('invalid word returns false', async (assert) => {
   const result = await mockMod.isValidWord('nope');
   assert.equal(result, false);
 });
-
 ```
 
+## Diff Visual Tool
 
-## Sample Output
+WIP
 
 ## Installation
 
-1. Install from npm:
+1. Install from npm along with peer dependencies:
 
     ```shell script
-    npm i hoare -DE
+    npm i typescript ts-node c8 hoare -DE
     ```
-1. Create an `.nycrc` file in the root of your project with the following:
-```
-{
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "all": true,
-    "exclude": [
-        "**/*.spec.ts",
-        "**/*.d.ts",
-        "**/*.spec.js",
-        "coverage",
-        ".eslintrc.js",
-        ".eslintrc",
-        "tests",
-        "test",
-        "test_utils"
-    ]
-}
-```
-1. Add "hoare" command to your `npm test` script:
+2. Create an `.c8rc.json` file in the root of your project with the following:
+    ```
+    {
+        "extends": "@istanbuljs/nyc-config-typescript",
+        "all": true,
+        "exclude": [
+            "**/*.spec.ts",
+            "**/*.d.ts",
+            "**/*.spec.js",
+            "coverage",
+            ".eslintrc.js",
+            ".eslintrc",
+            "tests",
+            "test",
+            "test_utils"
+        ]
+    }
+    ```
+3. Add "hoare" command to your `npm test` script:
 ```
 "scripts": {
     "test": "hoare"
@@ -220,8 +234,7 @@ I also must give huge credit to this article written by blah:
 
 > The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
 
-
-## How to build locally
+## Local Development
 
 ```bash
 npm i
@@ -233,7 +246,7 @@ npm i
 npm test
 ```
 
-## How to contribute
+## How to Contribute
 
 Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
 
@@ -261,3 +274,10 @@ This package follows [Semver](https://semver.org/) and [Conventional Commits](ht
 | `docs` | No version number change. |
 | `test` | No version number change. |
 
+
+
+## License
+
+MIT &copy; Marc H. Weiner
+
+[See full license](LICENSE)
