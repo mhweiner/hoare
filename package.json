@@ -27,16 +27,12 @@
     "ts unit test",
     "typescript unit test",
     "unit-test",
-    "mock",
-    "mocking",
-    "typescript mocking",
-    "ts mock",
-    "proxyquire",
-    "ts proxyquire",
-    "typescript proxyquire",
-    "isolate",
-    "dependency mock",
-    "rewire"
+    "mocha",
+    "jasmine",
+    "jest",
+    "tape",
+    "ava",
+    "node-tap"
   ],
   "dependencies": {
     "deep-object-diff": "~1.1.0",
