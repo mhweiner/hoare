@@ -2,11 +2,10 @@
 
 # hoare
 
-[![Build Status](https://github.com/mhweiner/hoare/workflows/build/badge.svg)](https://github.com/mhweiner/hoare/actions)
-[![Release Status](https://github.com/mhweiner/hoare/workflows/release/badge.svg)](https://github.com/mhweiner/hoare/actions)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![SemVer](https://img.shields.io/badge/SemVer-2.0.0-blue)]()
 
-A simple and opinionated Javascript/Typescript testing framework designed to help you to write and execute simple, readable, and maintainable tests. 
+A simple and opinionated Javascript/Typescript test runner designed to help you to write simple, readable, and maintainable tests. 
 
 **Out-of-the-box Typescript support 🔒**
 - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8](https://github.com/bcoe/c8) for code coverage.
@@ -18,8 +17,8 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
 
 **Easy to Use 😃**
 - [Very simple assertion API](#api). You shouldn't need to learn a new language to read and write tests. Assertions should be simple axiomatic logic and code, not an English-like poem.
+- Built-in [powerful diff visualization tool](#visual-diff-tool).
 - Any stray `stdout`, errors, or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
-- Built-in [powerful diff visualization tool](#visual-diff-tool) for strings and objects.
 - Clear documentation.
 
 **Defensive 🛡**
@@ -34,14 +33,13 @@ A simple and opinionated Javascript/Typescript testing framework designed to hel
   - Output reporting becomes much simpler and easier to read and understand.
 - No built-in `before()` and `after()`. This leads to messy design patterns and mistakes in test code. Most tests shouldn't require teardowns. Of course, you could still create your own.
 
-**Robust & Reliable 💪**
-- Small, simple, and modular codebase written in Typescript with minimal dependencies.
-- Breaking changes are discouraged. This package follows `semver`.
-- Largely agnostic of other tools, `hoare` doesn't try to do too much.
-
 **Modern Language Features ✨**
   - Async/Await/Promise Support
   - CJS & ESM support
+
+**Robust & Reliable 💪**
+- Small, simple, and modular codebase written in Typescript with minimal dependencies.
+- Largely agnostic of other tools and doesn't try to do too much.
 
 # Examples
 
@@ -165,11 +163,11 @@ Both errors **must** be an instance of `Error`, or an error will be thrown. See 
 
 WIP
 
-# Attribution
+# Inspiration, Philosophy & Attribution
 
 `hoare` is named after [Sir Tony Hoare](https://en.wikipedia.org/wiki/Tony_Hoare) (aka C. A. R. Hoare), and the [Hoare triple](https://en.wikipedia.org/wiki/Hoare_logic), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
 
-After years of working on [safety-critical](https://en.wikipedia.org/wiki/Safety-critical_system) and mission-critical software in healthcare, education and e-commerce, I have come to appreciate the importance of clean, readable, and maintainable unit tests and the profound effect they can have on the development of the code itself.
+After years of working on [safety-critical](https://en.wikipedia.org/wiki/Safety-critical_system) and mission-critical software in healthcare, finance, and e-commerce, I have come to appreciate the importance of clean, readable, and maintainable unit tests and the profound effect they can have on the development of the code itself.
 
 > The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
 
@@ -183,42 +181,16 @@ Difficult-to-read unit tests also increase the likelihood of lack of maintenance
 
 One of my biggest sources of inspiration is [Rethinking Unit Test Assertions](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f) by [Eric Elliot](https://medium.com/@_ericelliott).
 
-I have been a longtime fan of [tape](https://github.com/substack/tape) for its simplicity, and it was influential in this utility. Inspiration has also been taken from [AVA](https://github.com/avajs/ava) and [node-tap](https://github.com/tapjs/node-tap).
+Inspiration was also taken from other test frameworks [tape](https://github.com/substack/tape), [AVA](https://github.com/avajs/ava) and [node-tap](https://github.com/tapjs/node-tap).
 
 > There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
 
 # Contribution
 
-```console
-npm i
-npm test
-npm lint
-```
+For local development, see scripts in `package.json`.
 
-Issue a PR against `master` and request review from a lead maintainer. Make sure all tests pass and coverage is good.
-
-## Releases
-
-This package follows [Semver](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to determine how to version the codebase. This repo uses Github Actions to publish a release to npm.
-
-| Branch | Channel |
-| ----------------------- | ----------- |
-| `candidate-<name>` | Publish an `rc` prerelease the `rc-{name}` channel. |
-| `master` | Publish a release to the `default distribution` channel. |
-
-
-| Conventional Commit Type | Description |
-| ----------------------- | ----------- |
-| `BREAKING-CHANGE` | Bump the API's `major` version number. |
-| `feat` | Bump the API's `minor` version number. |
-| `fix` | Bump the API's `patch` version number. |
-| `build` | Bump the API's `patch` version number. |
-| `ci` | Bump the API's `patch` version number. |
-| `refactor` | Bump the API's `patch` version number. |
-| `style` | Bump the API's `patch` version number. |
-| `perf` | Bump the API's `patch` version number. |
-| `docs` | No version number change. |
-| `test` | No version number change. |
+- Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
+- You can also submit an issue.
 
 # License
 

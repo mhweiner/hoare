@@ -1,4 +1,5 @@
-import {test, mock} from '../src';
+import {test} from '../src';
+import {mock} from 'cjs-mock';
 import * as mod from './isValidWord'; // just used for type
 
 const dict = ['dog', 'cat', 'fish'].join('\n');
