@@ -183,9 +183,9 @@ Good unit tests force programmers to break apart their code into smaller, more e
 
 A unit test should act as a **_specification_** for the behavior of the code that we're testing. The Hoare triple, written as `{P} S {Q}`, provides a way for us to specify this expected behavior. Each part is a logical statement that must be true for the test to pass: `pre-condition`, `execution`, and `post-condition`. The Hoare triple is an easy way to reason about how a piece of code should behave, and a good unit test should clearly communicate this to the reader. I often use `given`, `when`, `then` in my unit tests.
 
-Difficult-to-read unit tests also increase the likelihood of lack of maintenance, abandonment, or errors in the test itself. Bad tests are actually worse than not having a test at all&mdash;they could give false confidence or just add friction.
+Not only do difficult-to-read tests not help the reader understand what the code is supposed to do, it can also lead to poor maintenance, abandonment, or errors in the test itself.
 
-Reliability in software&mdash;in tests or source code&mdash;is largely predicated on its simplicity.
+Reliability in software&mdash;in tests or source code&mdash;is largely predicated on its simplicity and clarity in **human** communication.
 
 > There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies and the other is to make it so complicated that there are no obvious deficiencies. — C. A. R. Hoare
 
