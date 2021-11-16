@@ -80,7 +80,8 @@ async function getValidWords() {
 ```
 _isValidWord.spec.ts_
 ```typescript
-import {test, mock} from 'hoare';
+import {test} from 'hoare';
+import {mock} from 'cjs-mock';
 import * as mod from './isValidWord'; // just used for typing
 
 const dict = ['dog', 'cat', 'fish'].join('\n');
@@ -102,34 +103,22 @@ test('invalid word returns false', async (assert) => {
 # Installation
 
 1. Install from npm along with peer dependencies:
-
     ```console
     npm i typescript ts-node c8 hoare -DE
     ```
-2. Create an `.c8rc.json` file in the root of your project with the following:
-    ```json
-    {
-        "extends": "@istanbuljs/nyc-config-typescript",
-        "all": true,
-        "exclude": [
-            "**/*.spec.ts",
-            "**/*.d.ts",
-            "**/*.spec.js",
-            "coverage",
-            ".eslintrc.js",
-            ".eslintrc",
-            "tests",
-            "test",
-            "test_utils"
-        ]
-    }
-    ```
+2. Create an `.c8rc.json` file in the root of your project (or use another config option), following the documentation from c8 for code coverage. See our [.c8rc.json](.c8rc.json) file as an example.
 3. Add the following command to your `package.json` `scripts` directive:
-```json
-{
-  "test": "hoare"
-}
 ```
+  "test": "c8 hoare 'src/**/*.spec.@(ts|js)' && c8 report -r text -r html"
+```
+
+The above command will do the following:
+
+1. Run `c8` for code coverage.
+2. Run any test files that match the [glob](https://github.com/terkelg/tiny-glob). In this case, it's any `.spec.js` or `.spec.ts` file within the `src` folder, recursively.
+3. If the test is successful, generate both an HTML and text coverage report.
+
+You can customize the above command to your situation.
 
 # Basic Usage
 

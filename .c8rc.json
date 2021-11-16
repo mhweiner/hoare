@@ -1,0 +1,15 @@
+{
+  "include": [
+    "demo/**/*.ts",
+    "demo/**/*.js",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.spec.js"
+  ],
+  "reporter": [],
+  "all": true,
+  "cache": false,
+  "clean": true
+}
