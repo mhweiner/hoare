@@ -24,7 +24,7 @@ export function printFileResults(resultsByFile: TestResultsByFile) {
     files.forEach((file) => {
 
         const [filename, tests] = file;
-        const header = `${kleur.underline().yellow(filename)}\n`;
+        const header = `${kleur.underline().blue(filename)}\n`;
 
         log(header);
         tests.forEach(((test) => {
@@ -65,10 +65,17 @@ function printFailedAssertionDiag(assertion: Assertion) {
 export function printSummary(finalResults: FinalResults) {
 
     const successRate = finalResults.numSuccessfulTests / finalResults.numTests;
-    const style = successRate === 1 ? kleur.bold().green : kleur.bold().red;
     const numFilesWithNoTests = finalResults.filesWithNoTests.length;
 
-    log(style(`${finalResults.numSuccessfulTests}/${finalResults.numTests} tests passed`));
+    if (successRate === 1) {
+
+        log(kleur.bold().green(`${successSymbol} ${finalResults.numSuccessfulTests}/${finalResults.numTests} tests passed`));
+
+    } else {
+
+        log(kleur.bold().red(`${failureSymbol} ${finalResults.numSuccessfulTests}/${finalResults.numTests} tests passed`));
+
+    }
 
     numFilesWithNoTests && log(noTestErrorTpl(finalResults.filesWithNoTests));
 
