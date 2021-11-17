@@ -5,7 +5,7 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![SemVer](https://img.shields.io/badge/SemVer-2.0.0-blue)]()
 
-A simple and opinionated Javascript/Typescript test runner designed to help you to write simple, readable, and maintainable tests. 
+A simple and opinionated Typescript/Javascript test runner designed to help you to write simple, readable, and maintainable tests. 
 
 **Out-of-the-box Typescript support 🔒**
 - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8](https://github.com/bcoe/c8) for code coverage.
