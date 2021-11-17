@@ -1,6 +1,6 @@
 {
   "name": "hoare",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "A simple and opinionated Typescript/Javascript test runner designed to help you to write simple, readable, and maintainable tests.",
   "license": "MIT",
   "main": "./dist/index.js",
