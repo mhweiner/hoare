@@ -171,7 +171,7 @@ Asserts deep and strict equality on objects or primitives. Unless your code is n
 Asserts that both errors are similar. Stack traces are ignored. It checks for both non-enumerable properties
 (ie, `name` and `message`) and enumerable properties (anything added by extending `Error`).
 
-Both errors **must** be an instance of `Error`, or an error will be thrown. See [validate.spec.ts](examples/validate.spec.ts) example.
+Both errors **must** be an instance of `Error`, or an error will be thrown. See [validate.spec.ts](demo/validate.spec.ts) example.
 
 # Visual Diff Tool
 

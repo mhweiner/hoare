@@ -19,7 +19,7 @@ test('valid phone number', (assert) => {
 
     }
 
-    assert.deepEqual(err, undefined, 'should not throw');
+    assert.equal(err, undefined, 'should not throw');
 
 });
 
