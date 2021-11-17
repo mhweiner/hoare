@@ -35,7 +35,6 @@ A simple and opinionated Javascript/Typescript test runner designed to help you 
 
 **Modern Language Features ✨**
   - Async/Await/Promise Support
-  - CJS & ESM support
 
 **Robust & Reliable 💪**
 - Small, simple, and modular codebase written in Typescript with minimal dependencies.
@@ -100,7 +99,7 @@ test('invalid word returns false', async (assert) => {
 });
 ```
 
-# Installation & Setup (Typical)
+# Installation & Setup
 
 1. Install from npm along with peer dependencies:
 
@@ -108,11 +107,20 @@ test('invalid word returns false', async (assert) => {
     npm i typescript ts-node c8 hoare -DE
     ```
    
+2. Make sure your [tsconfig.json](tsconfig.json) file has the following compiler options set:
 
-2. Create an `.c8rc.json` file in the root of your project (or use another config option), following the [c8 documentation](https://github.com/bcoe/c8). For an example, see our [.c8rc.json](.c8rc.json) file.
+    ```json
+    {
+      "module": "CommonJS",
+      "sourceMap": true
+    }
+    
+    ```
+
+3. Create an `.c8rc.json` file in the root of your project (or use another config option), following the [c8 documentation](https://github.com/bcoe/c8). For an example, see our [.c8rc.json](.c8rc.json) file.
 
 
-3. Add the following command to your `package.json` `scripts` directive:
+4. Add the following command to your `package.json` `scripts` directive:
 
     ```json
     {
