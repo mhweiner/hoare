@@ -24,7 +24,7 @@ A simple and opinionated Typescript/Javascript test runner designed to help you 
 **Defensive 🛡**
 - Uncaught errors and unhandled promise rejections will cause the test to fail.
 - Any files without tests, or tests without assertions, result in a failed test.
-- Strict and deep equality operator by default.
+- Strict and deep equality comparison by default.
 
 **Opinionated 🎓**
 - No nesting of tests. This has the following benefits:
@@ -186,7 +186,7 @@ When using `equal()` or `errorsEquivalent()`, you will get a visual output that 
 
 `hoare` is named after [Sir Tony Hoare](https://en.wikipedia.org/wiki/Tony_Hoare) (aka C. A. R. Hoare), and the [Hoare triple](https://en.wikipedia.org/wiki/Hoare_logic), the cornerstone of Hoare's axiomatic method of testing computer programs (what we largely consider unit testing today).
 
-After years of working on [safety-critical](https://en.wikipedia.org/wiki/Safety-critical_system) and mission-critical software in healthcare, finance, and e-commerce, I have come to appreciate the importance of clean, readable, and maintainable unit tests and the profound effect they can have on design.
+After years of working on [safety-critical](https://en.wikipedia.org/wiki/Safety-critical_system) and mission-critical software in healthcare, finance, and e-commerce, I have come to appreciate the importance of simple, readable, and maintainable unit tests and the profound effect they can have on design.
 
 > The real value of tests is not that they detect bugs in the code, but that they detect inadequacies in the methods, concentration, and skills of those who design and produce the code. — C. A. R. Hoare
 
