@@ -2,7 +2,7 @@ import {TestResults} from './test';
 import ora from 'ora';
 import {printFileResults, printSummary} from './output';
 import {calculateFinalResults} from './calculateFinalResults';
-import {createPool} from './workerPool';
+import {workerPool} from './workerPool';
 import {shouldExitWithError} from './shouldExitWithError';
 import {getSpecFiles} from './getSpecFiles';
 
@@ -25,7 +25,8 @@ async function start() {
 
     console.log(`Found ${specFiles.length} spec files.\n`);
     status.start('Running tests...');
-    createPool(specFiles, addTestResults, () => finish(specFiles));
+    await workerPool(specFiles, addTestResults);
+    finish(specFiles);
 
 }
 

@@ -8,38 +8,43 @@ const numCores = cpus().length; // will be the size of our worker pool
 let numWorkers = 0;
 let currentSpecFileIndex = 0;
 
-type OnMessageFunc = (file: string, testResults: TestResults) => void;
+export function workerPool(
+    specFiles: string[],
+    addTestResults: (file: string, testResults: TestResults) => void
+): Promise<void> {
 
-export function createPool(specFiles: string[], onMessage: OnMessageFunc, onFinish: () => void) {
+    return new Promise((resolve, reject) => {
 
-    function next() {
+        function next() {
 
-        if (currentSpecFileIndex >= specFiles.length && numWorkers === 0) onFinish();
-        if (currentSpecFileIndex >= specFiles.length) return;
-        if (numWorkers >= numCores) return;
+            if (currentSpecFileIndex >= specFiles.length && numWorkers === 0) resolve();
+            if (currentSpecFileIndex >= specFiles.length) return;
+            if (numWorkers >= numCores) return;
 
-        const file = specFiles[currentSpecFileIndex];
-        const [err, worker] = attemptSync(() => fork(file));
+            const file = specFiles[currentSpecFileIndex];
+            const [err, worker] = attemptSync(() => fork(file));
 
-        if (err) {
+            if (err) {
 
-            throw new Error(`failed to create worker for ${file}`);
+                return reject(new Error(`failed to create worker for ${file}`));
+
+            }
+
+            numWorkers++;
+            currentSpecFileIndex++;
+            worker.on('close', () => {
+
+                numWorkers--;
+                next();
+
+            });
+            worker.on('message', (msg) => addTestResults(file, msg as TestResults));
+            next();
 
         }
 
-        numWorkers++;
-        currentSpecFileIndex++;
-        worker.on('close', () => {
-
-            numWorkers--;
-            next();
-
-        });
-        worker.on('message', (msg) => onMessage(file, msg as TestResults));
         next();
 
-    }
-
-    next();
+    });
 
 }

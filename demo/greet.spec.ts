@@ -5,7 +5,7 @@ test('returns expected object', (assert) => {
 
     assert.equal(greet('Bob'), {
         greet: 'hello',
-        noun: 'bob',
+        noun: 'Bob',
     });
 
 });

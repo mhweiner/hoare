@@ -23,7 +23,7 @@ A simple and opinionated Typescript/Javascript test runner designed to help you 
 
 **Defensive 🛡**
 - Uncaught errors and unhandled promise rejections will cause the test to fail.
-- Any files without tests, or tests without assertions, result in a failed test.
+- Any spec files without tests, or tests without assertions, result in a failed test.
 - Strict and deep equality comparison by default.
 
 **Opinionated 🎓**
