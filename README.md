@@ -106,7 +106,7 @@ test('invalid word returns false', async (assert) => {
 1. Install from npm along with peer dependencies:
 
     ```console
-    npm i typescript ts-node c8 hoare -DE
+    npm i typescript ts-node c8 hoare -D
     ```
    
 2. Make sure your [tsconfig.json](tsconfig.json) file has the following compiler options set:

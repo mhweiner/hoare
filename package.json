@@ -36,23 +36,23 @@
     "node-tap"
   ],
   "dependencies": {
-    "deep-object-diff": "~1.1.0",
-    "diff": "~5.0.0",
-    "kleur": "~4.1.4",
-    "ora": "~5.4.1",
-    "serialize-error": "~8.1.0",
-    "tiny-glob": "~0.2.9"
+    "deep-object-diff": "^1.1.0",
+    "diff": "^5.0.0",
+    "kleur": "^4.1.4",
+    "ora": "^5.4.1",
+    "serialize-error": "^8.1.0",
+    "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
-    "@types/diff": "~5.0.1",
-    "@types/node": "~16.11.6",
-    "@typescript-eslint/eslint-plugin": "~5.2.0",
-    "@typescript-eslint/parser": "~5.2.0",
-    "c8": "~7.10.0",
-    "cjs-mock": "0.1.0",
-    "eslint": "~8.1.0",
-    "hoare": "2.0.6",
-    "ts-node": "~10.4.0",
-    "typescript": "~4.4.4"
+    "@types/diff": "^5.0.1",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "c8": "^7.10.0",
+    "cjs-mock": "^0.1.0",
+    "eslint": "^8.1.0",
+    "hoare": "^2.0.6",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
   }
 }
