@@ -39,8 +39,6 @@ function addTestResults(file: string, results: TestResults) {
 
     numCompletedTests = numCompletedTests + 1;
     testResultsByFile[file] = (testResultsByFile[file] || []).concat([results]);
-
-    // update status
     status.text = `${numCompletedTests} tests completed.`;
 
 }
