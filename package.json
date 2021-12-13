@@ -1,6 +1,6 @@
 {
   "name": "hoare",
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantic-release",
   "description": "A simple and opinionated Typescript/Javascript test runner designed to help you to write simple, readable, and maintainable tests.",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -10,7 +10,10 @@
   "types": "dist/index.d.ts",
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "CHANGELOG.md",
+    "package.json",
+    "package-lock.json"
   ],
   "repository": {
     "type": "git",
@@ -20,7 +23,6 @@
     "test": "npm run build && c8 ./bin/cli.js '@(demo|src)/**/*.spec.@(ts|js)' && c8 report -r text -r html",
     "lint": "eslint ./ --ext .js,.ts",
     "build": "rm -rf ./dist && tsc",
-    "prepare": "npm run build",
     "semantic-release": "semantic-release"
   },
   "homepage": "https://github.com/mhweiner/hoare",
