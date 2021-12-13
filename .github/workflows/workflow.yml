@@ -15,17 +15,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 14.x
       - name: Install dependencies
-        run: npx ci
+        run: npm ci
       - name: Lint
         run: npm run lint
       - name: Test
         run: npm test
-      - name: Build
-        run: npm run build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: npm run semantic-release
