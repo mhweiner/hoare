@@ -10,9 +10,9 @@ const failureSymbol = kleur.red('✖');
 const hr = kleur.gray('\n────────────────────────────────\n');
 
 const noTestErrorTpl = (files: string[]) => kleur.red().bold(`
-Error: ${files.length} spec file(s) do not have any tests. This could indicate a compilation error 
-(ie. Typescript), or an early runtime error. All files must have at least one test. 
-The following files do not have any completed or attempted tests:
+Error: ${files.length} spec file(s) have no tests. This could indicate a compilation error 
+(ie. Typescript), or an early runtime error. All spec files must have at least one test. 
+The following spec files do not have any attempted or completed tests:
 
 ${files.join(', ')}
 `);

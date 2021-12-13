@@ -4,7 +4,7 @@ import * as mod from './isValidWord'; // just used for type
 
 const dict = ['dog', 'cat', 'fish'].join('\n');
 const mockMod: typeof mod = mock('./isValidWord', {
-    'fs/promises': {readFile: () => Promise.resolve(dict)},
+    fs: {promises: {readFile: () => Promise.resolve(dict)}},
 });
 
 test('valid word returns true', async (assert) => {

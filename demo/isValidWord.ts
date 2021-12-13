@@ -1,4 +1,4 @@
-import {readFile} from 'fs/promises';
+import {promises} from 'fs';
 
 export async function isValidWord(word: string) {
 
@@ -10,7 +10,7 @@ export async function isValidWord(word: string) {
 
 async function getValidWords() {
 
-    const contents = await readFile('./dict.txt', 'utf-8');
+    const contents = await promises.readFile('./dict.txt', 'utf-8');
 
     return contents.split('\n');
 
