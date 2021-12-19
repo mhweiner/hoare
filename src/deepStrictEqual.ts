@@ -1,19 +1,9 @@
 export function deepStrictEqual(obj1: any, obj2: any) {
 
-    if (obj1 === obj2) { // it's just the same object. No need to compare.
-
-        return true;
-
-    }
-
-    if (isPrimitive(obj1) && isPrimitive(obj2)) { // compare primitives
-
-        return obj1 === obj2;
-
-    }
-
-    if (Object.keys(obj1).length !== Object.keys(obj2).length)
-        return false;
+    if (obj1 === obj2) return true;
+    if (isPrimitive(obj1) && isPrimitive(obj2)) return obj1 === obj2;
+    if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
+    if (typeof obj1 !== typeof obj2) return false;
 
     // compare objects with same number of keys
     for (const key in obj1) {
