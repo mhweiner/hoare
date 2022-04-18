@@ -5,11 +5,16 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![SemVer](https://img.shields.io/badge/SemVer-2.0.0-blue)]()
 
-A simple and opinionated Typescript/Javascript test runner designed to help you to write simple, readable, and maintainable tests. 
+A simple, fast, opinionated, and defensive Typescript/Javascript test runner designed to help you to write simple, readable, and maintainable tests. 
 
 **Out-of-the-box Typescript support 🔒**
 - Written in and designed around Typescript. No special configuration needed, and no plugins to install. Works great with [c8](https://github.com/bcoe/c8) for code coverage.
 - Handles compilation errors gracefully.
+
+**Defensive 🛡**
+- Uncaught errors and unhandled promise rejections will cause the test to fail.
+- Any spec files without tests, or tests without assertions, result in a failed test.
+- Strict and deep equality comparison by default.
 
 **Designed For Speed 🚀**
 - Multi-process parallel test runner. Each spec file is run in its own process and runtime for speed and isolation benefits.
@@ -20,11 +25,6 @@ A simple and opinionated Typescript/Javascript test runner designed to help you 
 - Built-in [powerful diff visualization tool](#visual-diff-tool).
 - Errors or unhandled promise rejections are buffered and grouped under the test file in the output. This helps you know where they came from.
 - Clear documentation.
-
-**Defensive 🛡**
-- Uncaught errors and unhandled promise rejections will cause the test to fail.
-- Any spec files without tests, or tests without assertions, result in a failed test.
-- Strict and deep equality comparison by default.
 
 **Opinionated 🎓**
 - No nesting of tests. This has the following benefits:
