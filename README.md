@@ -1,4 +1,4 @@
-<img src="docs/hoare-logo-transparent.png" title="Hoare triple" alt="Hoare triple" width="170">
+<img src="docs/hoare-logo-transparent.png" title="Hoare triple" alt="Hoare triple" width="150">
 
 [![build status](https://github.com/mhweiner/hoare/actions/workflows/workflow.yml/badge.svg)](https://github.com/mhweiner/hoare/actions)
 [![semantic-release](https://img.shields.io/badge/semantic--release-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
