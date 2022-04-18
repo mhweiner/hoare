@@ -1,4 +1,4 @@
-<img src="docs/hoare-logo.png" title="Hoare triple" alt="Hoare triple" width="200">
+<img src="docs/hoare-logo-transparent.png" title="Hoare triple" alt="Hoare triple" width="170">
 
 # hoare
 
