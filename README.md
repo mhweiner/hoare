@@ -1,7 +1,5 @@
 <img src="docs/hoare-logo-transparent.png" title="Hoare triple" alt="Hoare triple" width="170">
 
-# hoare
-
 [![build status](https://github.com/mhweiner/hoare/actions/workflows/workflow.yml/badge.svg)](https://github.com/mhweiner/hoare/actions)
 [![semantic-release](https://img.shields.io/badge/semantic--release-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
