@@ -209,12 +209,13 @@ Inspiration was also taken from the following:
 - [Rethinking Unit Test Assertions](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f) by [Eric Elliot](https://medium.com/@_ericelliott).
 - Other test frameworks [tape](https://github.com/substack/tape), [AVA](https://github.com/avajs/ava) and [node-tap](https://github.com/tapjs/node-tap).
 
-# Contribution
+# Ways to Contribute
 
-For local development, see scripts in `package.json`.
-
+- Submit an [issue](https://github.com/mhweiner/hoare/issues) with your feature request or bug report
 - Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
-- You can also submit an issue.
+- Write about unit testing best practices and use hoare in your examples
+
+Together we can make software more reliable and easier to maintain!
 
 # License
 
