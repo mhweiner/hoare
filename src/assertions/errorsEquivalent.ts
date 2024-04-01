@@ -1,6 +1,6 @@
 import {serializeError} from 'serialize-error';
 import {Assertion} from '../test';
-import {deepStrictEqual} from '../deepStrictEqual';
+import {deepStrictEqual} from '../lib/deepStrictEqual';
 
 export function errorsEquivalent(assertions: Assertion[], actualErr: any, expectedErr: any, description?: string) {
 

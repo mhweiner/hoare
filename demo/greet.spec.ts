@@ -1,4 +1,4 @@
-import {test} from '../src';
+import {test} from '../src'; // from 'hoare'
 import {greet} from './greet';
 
 test('returns expected object', (assert) => {

@@ -8,7 +8,7 @@
     "**/*.spec.ts",
     "**/*.spec.js"
   ],
-  "reporter": [],
+  "reporter": [], 
   "all": true,
   "cache": false,
   "clean": true

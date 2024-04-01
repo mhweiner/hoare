@@ -1,4 +1,4 @@
-import {test} from '../src';
+import {test} from '../src'; // from 'hoare'
 import {helloworld} from './helloworld';
 
 test('returns "hello, world"', (assert) => {

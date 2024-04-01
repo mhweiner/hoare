@@ -1,4 +1,4 @@
-import {test} from '../src';
+import {test} from '../src'; // from 'hoare'
 import {InvalidPhoneNumber, validatePhoneNumber} from './validate';
 
 test('valid phone number', (assert) => {

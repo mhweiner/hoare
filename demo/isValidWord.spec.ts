@@ -1,4 +1,4 @@
-import {test} from '../src';
+import {test} from '../src'; // from 'hoare'
 import {mock} from 'cjs-mock';
 import * as mod from './isValidWord'; // just used for type
 

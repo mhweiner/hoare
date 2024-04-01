@@ -1,5 +1,5 @@
 import {Assertion} from '../test';
-import {deepStrictEqual} from '../deepStrictEqual';
+import {deepStrictEqual} from '../lib/deepStrictEqual';
 import {diff as diffObj} from 'deep-object-diff';
 import {diffChars as diffStr} from 'diff';
 import * as util from 'util';
