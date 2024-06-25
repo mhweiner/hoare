@@ -1,7 +1,10 @@
 name: Release
 on:
   push:
-    branches: [master, beta]
+    branches:
+      - master
+      - alpha
+      - beta
 jobs:
   release:
     name: Release
@@ -13,12 +16,14 @@ jobs:
           node-version: latest
       - name: Install dependencies
         run: npm ci
+      - name: Install ci dependencies globally (to not pollute the project)
+        run: npm install -g semantic-release
       - name: Lint
         run: npm run lint
       - name: Test
         run: npm test
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
         run: npm run semantic-release
