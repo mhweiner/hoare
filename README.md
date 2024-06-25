@@ -263,7 +263,7 @@ function teardown() {
 # Ways to Contribute
 
 - Submit an [issue](https://github.com/mhweiner/hoare/issues) with your feature request or bug report
-- Issue a PR against `master` and request review. Make sure all tests pass and coverage is good.
+- Issue a PR against `main` and request review. Make sure all tests pass and coverage is good.
 - Write about unit testing best practices and use hoare in your examples
 
 Together we can make software more reliable and easier to maintain!

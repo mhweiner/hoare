@@ -11,7 +11,8 @@
   "files": [
     "bin",
     "dist",
-    "CHANGELOG.md",
+    "!dist/**/*.map",
+    "!dist/**/*.spec.*",
     "package.json",
     "package-lock.json"
   ],
