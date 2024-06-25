@@ -1,7 +1,6 @@
-import {serializeError} from 'serialize-error';
 import {Assertion} from '../test';
-import {deepStrictEqual} from '../lib/deepStrictEqual';
 import {toResult} from '../lib/toResult';
+import {errorsEquivalent} from './errorsEquivalent';
 
 export function throws(assertions: Assertion[], experiment: () => any, expectedErr: Error, description?: string) {
 
@@ -11,13 +10,7 @@ export function throws(assertions: Assertion[], experiment: () => any, expectedE
         throw new Error('expectedErr is not an instance of Error');
 
     const [actualErr] = toResult(experiment);
-    const actualErrSerialized = serializeError(actualErr);
-    const expectedErrSerialized = serializeError(expectedErr);
 
-    // ignore stack traces
-    delete actualErrSerialized?.stack;
-    delete expectedErrSerialized?.stack;
-
-    assertions.push({pass: deepStrictEqual(actualErrSerialized, expectedErrSerialized), description});
+    errorsEquivalent(assertions, actualErr, expectedErr, description || 'throws()');
 
 }

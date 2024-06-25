@@ -1,7 +1,7 @@
 import {cpus} from 'os';
-import attemptSync from './attemptSync';
 import {fork} from 'child_process';
 import {TestResults} from './test';
+import {toResult} from './lib/toResult';
 
 const numCores = cpus().length; // will be the size of our worker pool
 
@@ -22,7 +22,7 @@ export function workerPool(
             if (numWorkers >= numCores) return;
 
             const file = specFiles[currentSpecFileIndex];
-            const [err, worker] = attemptSync(() => fork(file));
+            const [err, worker] = toResult(() => fork(file));
 
             if (err) {
 

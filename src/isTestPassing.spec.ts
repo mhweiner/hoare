@@ -1,39 +1,40 @@
 /* eslint-disable max-lines-per-function */
 
 import {isTestPassing} from './isTestPassing';
-import {test, TestResults} from './test';
+import {test} from './test';
 import {serializeError} from 'serialize-error';
 
-test('all assertions must pass for test to pass', (assert) => {
+test('isTestPassing()', (assert) => {
 
-    const testResults: TestResults = {
+    assert.equal(isTestPassing({
         description: 'test',
-        assertions: [{pass: true}, {pass: false}, {pass: true}],
-    };
+        assertions: [
+            {pass: true, description: 'assertion 1'},
+            {pass: true, description: 'assertion 2'},
+            {pass: true, description: 'assertion 3'},
+        ],
+    }), true, 'test passes if all assertions pass');
 
-    assert.equal(isTestPassing(testResults), false, 'test fails if one assumption fails');
-
-    testResults.assertions = [{pass: true}, {pass: true}, {pass: true}];
-
-    assert.equal(isTestPassing(testResults), true, 'test passes if all assumptions pass');
-
-});
-
-test('must have at least one assertion', (assert) => {
+    assert.equal(isTestPassing({
+        description: 'test',
+        assertions: [
+            {pass: true, description: 'assertion 1'},
+            {pass: false, description: 'assertion 2'},
+            {pass: true, description: 'assertion 3'},
+        ],
+    }), false, 'test fails if one or more assumptions fail');
 
     assert.equal(isTestPassing({
         description: 'test',
         assertions: [],
-    }), false);
-
-});
-
-test('test with error makes test fail, even with passing assertions', (assert) => {
+    }), false, 'test fails if no assertions');
 
     assert.equal(isTestPassing({
         description: 'test',
-        assertions: [{pass: true}],
+        assertions: [
+            {pass: true, description: 'assertion 1'},
+        ],
         error: serializeError(new Error()),
-    }), false);
+    }), false, 'test fails if there is an error, even if all assertions pass');
 
 });

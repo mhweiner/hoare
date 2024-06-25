@@ -177,25 +177,27 @@ Example:
 ```typescript
 import {test} from 'hoare';
 
-function mustBe42(num: number) {
+function mustBe42(num: number): void {
   if (num !== 42) {
     throw new Error('expected 42');
   }
 }
 
-test('should throw error', (assert) => {
+test('mustBe42()', (assert) => {
+  assert.equal(mustbe42(42), undefined, 'should not throw if 42');
   assert.throws(() => mustBe42(15), new Error('expected 42'), 'should throw if not 42');
 });
 ```
 
 #### `errorsEquivalent(err1: any, err2: any, msg?: string)`
 
-Note: we recommend you use `throws()` instead of this method. This is a more advanced method for comparing errors.
+|📝 You may want to use `throws()` instead of this method for convenience, as this will catch the error for you without need to wrap it in a try/catch block. |
+|---------|
 
 Asserts that both errors are similar. Similar to `equal()`, but stack traces are ignored. It checks for both non-enumerable properties
 (ie, `name` and `message`) and enumerable properties (anything added by extending `Error`).
 
-Both errors **must** be an instance of `Error`, or an error will be thrown. See [validate.spec.ts](demo/validate.spec.ts) example.
+Both errors **must** be an instance of `Error`, or an error will be thrown.
 
 # Visual Diff Tool
 

@@ -8,8 +8,7 @@ import {AssertionError} from './AssertionError';
 
 export function equal(assertions: Assertion[], actual: any, expected: any, description?: string) {
 
-    const defaultDescription = 'equal()';
-    const descWithDefault = description || defaultDescription;
+    const descWithDefault = description || 'equal()';
 
     if (deepStrictEqual(actual, expected)) {
 

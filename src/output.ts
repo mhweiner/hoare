@@ -32,7 +32,7 @@ export function printFileResults(resultsByFile: TestResultsByFile) {
             log(`${test.description} ${isTestPassing(test) ? successSymbol : failureSymbol}`);
             test.assertions.forEach((assertion) => {
 
-                log(kleur.gray(`  ${assertion.description || ''} ${assertion.pass ? successSymbol : failureSymbol}`));
+                log(kleur.gray(`  ${assertion.description} ${assertion.pass ? successSymbol : failureSymbol}`));
                 !assertion.pass && printFailedAssertionDiag(assertion);
 
             });
@@ -54,6 +54,8 @@ function printError(serializedError: ErrorObject) {
 }
 
 function printFailedAssertionDiag(assertion: Assertion) {
+
+    if (!assertion.diagnostic && !assertion.stack) return;
 
     log(hr);
     assertion.diagnostic && log(assertion.diagnostic);

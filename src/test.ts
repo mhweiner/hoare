@@ -1,6 +1,6 @@
 import {createAssertionPredicates} from './assertions';
-import attempt from './attempt';
 import {serializeError, ErrorObject} from 'serialize-error';
+import {toResultAsync} from './lib/toResult';
 
 export type TestResults = {
     description: string
@@ -10,8 +10,7 @@ export type TestResults = {
 
 export type Assertion = {
     pass: boolean
-    name?: string
-    description?: string
+    description: string
     diagnostic?: string
     stack?: string
 };
@@ -32,7 +31,7 @@ export async function test(description: string, experiment: (assert: AssertionAP
 
     const assertions: Assertion[] = [];
     const expAsync = async () => experiment(createAssertionPredicates(assertions));
-    const [err] = await attempt(expAsync());
+    const [err] = await toResultAsync(expAsync());
 
     if (err) {
 

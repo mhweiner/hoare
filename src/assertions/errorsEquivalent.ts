@@ -1,6 +1,6 @@
 import {serializeError} from 'serialize-error';
 import {Assertion} from '../test';
-import {deepStrictEqual} from '../lib/deepStrictEqual';
+import {equal} from './equal';
 
 export function errorsEquivalent(assertions: Assertion[], actualErr: any, expectedErr: any, description?: string) {
 
@@ -16,6 +16,11 @@ export function errorsEquivalent(assertions: Assertion[], actualErr: any, expect
     delete actualErrSerialized?.stack;
     delete expectedErrSerialized?.stack;
 
-    assertions.push({pass: deepStrictEqual(actualErrSerialized, expectedErrSerialized), description});
+    equal(
+        assertions,
+        actualErrSerialized,
+        expectedErrSerialized,
+        description || 'errorsEquivalent()',
+    );
 
 }
