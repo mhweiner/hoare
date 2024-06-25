@@ -168,7 +168,29 @@ Create a test. `cb` can be an `async` function.
 
 Asserts deep and strict equality on objects or primitives. This will give you a [visual diff](#visual-diff-tool) output for any discrepancies.
 
+#### `throws(experiment: () => any, expectedError: Error, msg?: string): void`
+
+Asserts that the function `experiment` throws an error that is equivalent to `expectedError`, ignoring stack traces.
+
+Example:
+
+```typescript
+import {test} from 'hoare';
+
+function mustBe42(num: number) {
+  if (num !== 42) {
+    throw new Error('expected 42');
+  }
+}
+
+test('should throw error', (assert) => {
+  assert.throws(() => mustBe42(15), new Error('expected 42'), 'should throw if not 42');
+});
+```
+
 #### `errorsEquivalent(err1: any, err2: any, msg?: string)`
+
+Note: we recommend you use `throws()` instead of this method. This is a more advanced method for comparing errors.
 
 Asserts that both errors are similar. Similar to `equal()`, but stack traces are ignored. It checks for both non-enumerable properties
 (ie, `name` and `message`) and enumerable properties (anything added by extending `Error`).
