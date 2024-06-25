@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install ci dependencies globally (to not pollute the project)
-        run: npm install -g semantic-release
+        run: npm install -g semantic-release conventional-changelog-conventionalcommits
       - name: Lint
         run: npm run lint
       - name: Test
