@@ -39,8 +39,6 @@ Named after [Sir Tony Hoare](https://en.wikipedia.org/wiki/Tony_Hoare), the inve
   - Async/Await/Promise Support
   - Simple API facilitates functional programming patterns and AI test generation.
 
-[Read more on the inspiration, philosophy and attributions.](#inspiration-philosophy--attribution)
-
 # Table of Contents
 
 - [Examples](#examples)
@@ -72,7 +70,10 @@ test('should return "hello, world"', (assert) => {
   assert.equal(helloworld(), 'hello, world');
 });
 ```
-## Valid Word
+
+## Mocking Dependencies
+
+You can use [cjs-mock](https://npmjs.org/cjs-mock) to mock dependencies (only works with CommonJS modules). This is especially useful for mocking file system operations, network requests, or other side effects.
 
 _isValidWord.ts_
 ```typescript
@@ -110,7 +111,7 @@ test('invalid word returns false', async (assert) => {
 });
 ```
 
-See [demo](demo) or [src](src) directories for more examples.
+### For more examples, see [examples](examples) or [src](src).
 
 # Installation & Setup
 
