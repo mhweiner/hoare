@@ -1,10 +1,9 @@
 import {Assertion} from '../test';
 import {deepStrictEqual} from '../lib/deepStrictEqual';
-import {diff as diffObj} from 'deep-object-diff';
-import {diffChars as diffStr} from 'diff';
 import * as util from 'util';
 import kleur from 'kleur';
 import {AssertionError} from './AssertionError';
+import {getDiff} from '../lib/diff';
 
 export function equal(assertions: Assertion[], actual: any, expected: any, description?: string) {
 
@@ -25,17 +24,6 @@ export function equal(assertions: Assertion[], actual: any, expected: any, descr
 
 }
 
-function getDiff(actual: any, expected: any) {
-
-    return (typeof actual === 'string' && typeof expected === 'string' && stringVisualDiff(actual, expected))
-        || (typeof actual === 'object' && typeof expected === 'object' && util.inspect(diffObj(actual, expected), {
-            colors: true,
-            depth: null,
-        }))
-        || '';
-
-}
-
 function createDiagnostic(actual: any, expected: any) {
 
     const diff = getDiff(actual, expected);
@@ -50,11 +38,3 @@ function createDiagnostic(actual: any, expected: any) {
 
 }
 
-function stringVisualDiff(actual: string, expected: string) {
-
-    return diffStr(actual, expected).reduce((str, part) => str + (
-        part.added ? kleur.bgGreen().black(part.value) : part.removed
-            ? kleur.bgRed().white(part.value) : kleur.white(part.value)
-    ), '');
-
-}
