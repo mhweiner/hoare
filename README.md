@@ -216,15 +216,17 @@ src
 
 Create a test. `cb` can be an `async` function.
 
-## Interfaces
+## Assertions
 
-### `Assert`
+### equal
 
-#### `equal(actual: any, expected: any, msg?: string): void`
+`equal(actual: any, expected: any, msg?: string): void`
 
 Asserts deep and strict equality on objects or primitives. This will give you a [visual diff](#visual-diff-tool) output for any discrepancies.
 
-#### `throws(experiment: () => any, expectedError: Error, msg?: string): void`
+### throws
+
+`throws(experiment: () => any, expectedError: Error, msg?: string): void`
 
 Asserts that the function `experiment` throws an error that is equivalent to `expectedError`, ignoring stack traces.
 
@@ -247,7 +249,9 @@ test('mustBe42()', (assert) => {
 });
 ```
 
-#### `errorsEquivalent(err1: any, err2: any, msg?: string)`
+### errorsEquivalent
+
+`errorsEquivalent(err1: any, err2: any, msg?: string)`
 
 Asserts that both errors are similar. Stack traces are ignored. It checks for both non-enumerable properties
 (ie, `name` and `message`) and enumerable properties (anything added by extending `Error`).
