@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "./dist/index.js",
   "bin": {
-    "hoare": "./bin/cli.js"
+    "hoare": "bin/cli.js"
   },
   "types": "dist/index.d.ts",
   "files": [
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mhweiner/hoare.git"
+    "url": "git+https://github.com/mhweiner/hoare.git"
   },
   "scripts": {
     "prepare": "npm run build",
