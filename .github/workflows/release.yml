@@ -1,29 +1,26 @@
 name: Release
 on:
   push:
-    branches:
-      - main
-      - alpha
-      - beta
+    branches: [main, next]
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    concurrency: 
+      group: deploy-${{github.ref}}
+      cancel-in-progress: true
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
       - uses: actions/setup-node@v4
         with:
           node-version: latest
-      - name: Install dependencies
-        run: npm ci
-      - name: Install ci dependencies globally (to not pollute the project)
-        run: npm install -g semantic-release conventional-changelog-conventionalcommits
-      - name: Lint
-        run: npm run lint
-      - name: Test
-        run: npm test
-      - name: Release
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+      - run: npx autorel@next
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-        run: npm run semantic-release
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        
