@@ -1,6 +1,6 @@
 import {TestResults} from './test';
 import ora from 'ora';
-import {printFileResults, printSummary} from './output';
+import {printResultsByFile, printSummary} from './output';
 import {calculateFinalResults} from './calculateFinalResults';
 import {workerPool} from './workerPool';
 import {shouldExitWithError} from './shouldExitWithError';
@@ -49,7 +49,7 @@ function finish(specFiles: string[]) {
 
     const finalResults = calculateFinalResults(specFiles, testResultsByFile);
 
-    printFileResults(testResultsByFile);
+    printResultsByFile(testResultsByFile);
     printSummary(finalResults);
     if (shouldExitWithError(finalResults)) process.exit(1);
 

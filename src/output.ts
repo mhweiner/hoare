@@ -1,7 +1,7 @@
 import kleur from 'kleur';
 import {TestResultsByFile, FinalResults} from './run';
 import {isTestPassing} from './isTestPassing';
-import {Assertion} from './test';
+import {Assertion, TestResults} from './test';
 import {deserializeError, ErrorObject} from 'serialize-error';
 
 const log = console.log;
@@ -17,31 +17,34 @@ The following spec files do not have any attempted or completed tests:
 ${files.join(', ')}
 `);
 
-export function printFileResults(resultsByFile: TestResultsByFile) {
+export function printResultsByFile(resultsByFile: TestResultsByFile) {
 
-    const files = Object.entries(resultsByFile);
+    const passedFiles = Object.entries(resultsByFile).filter(([, tests]) => tests.every(isTestPassing));
+    const failedFiles = Object.entries(resultsByFile).filter(([, tests]) => tests.some((test) => !isTestPassing(test)));
 
-    files.forEach((file) => {
+    passedFiles.forEach(([filename, tests]) => printFileResults(filename, tests));
+    failedFiles.forEach(([filename, tests]) => printFileResults(filename, tests));
 
-        const [filename, tests] = file;
-        const header = `${kleur.underline().blue(filename)}\n`;
+}
 
-        log(header);
-        tests.forEach(((test) => {
+export function printFileResults(filename: string, tests: TestResults[]) {
 
-            log(`${test.description} ${isTestPassing(test) ? successSymbol : failureSymbol}`);
-            test.assertions.forEach((assertion) => {
+    const header = `${kleur.underline().blue(filename)}\n`;
 
-                log(kleur.gray(`  ${assertion.description} ${assertion.pass ? successSymbol : failureSymbol}`));
-                !assertion.pass && printFailedAssertionDiag(assertion);
+    log(header);
+    tests.forEach(((test) => {
 
-            });
-            test.error && printError(test.error);
-            log('');
+        log(`${test.description} ${isTestPassing(test) ? successSymbol : failureSymbol}`);
+        test.assertions.forEach((assertion) => {
 
-        }));
+            log(kleur.gray(`  ${assertion.description} ${assertion.pass ? successSymbol : failureSymbol}`));
+            !assertion.pass && printFailedAssertionDiag(assertion);
 
-    });
+        });
+        test.error && printError(test.error);
+        log('');
+
+    }));
 
 }
 
