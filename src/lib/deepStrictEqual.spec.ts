@@ -105,3 +105,104 @@ test('deepStrictEqual() returns false for objects with different nested keys', (
     assert.equal(deepStrictEqual({a: {b: 2}}, {a: {c: 3}}), false);
 
 });
+
+// write a test for deepStrictEqual() that supports Map and Set
+
+test('deepStrictEqual() returns true for Map objects that are deeply equal', (assert) => {
+
+    const map1 = new Map([[1, 'a'], [2, 'b']]);
+    const map2 = new Map([[1, 'a'], [2, 'b']]);
+
+    assert.equal(deepStrictEqual(map1, map2), true);
+
+});
+
+test('deepStrictEqual() returns false for Map objects that are not deeply equal', (assert) => {
+
+    const map1 = new Map([[1, 'a'], [2, 'b']]);
+    const map2 = new Map([[1, 'a'], [2, 'c']]);
+
+    assert.equal(deepStrictEqual(map1, map2), false);
+
+});
+
+test('deepStrictEqual() returns false for Map objects with different numbers of keys', (assert) => {
+
+    const map1 = new Map([[1, 'a'], [2, 'b']]);
+    const map2 = new Map([[1, 'a']]);
+
+    assert.equal(deepStrictEqual(map1, map2), false);
+
+});
+
+test('deepStrictEqual() returns false for Map objects with different keys', (assert) => {
+
+    const map1 = new Map([[1, 'a'], [2, 'b']]);
+    const map2 = new Map([[1, 'a'], [3, 'b']]);
+
+    assert.equal(deepStrictEqual(map1, map2), false);
+
+});
+
+test('deepStrictEqual() returns false for Map objects with different values', (assert) => {
+
+    const map1 = new Map([[1, 'a'], [2, 'b']]);
+    const map2 = new Map([[1, 'a'], [2, 'c']]);
+
+    assert.equal(deepStrictEqual(map1, map2), false);
+
+});
+
+test('deepStrictEqual() returns true for Set objects that are deeply equal', (assert) => {
+
+    const set1 = new Set(['a', 'b']);
+    const set2 = new Set(['a', 'b']);
+
+    assert.equal(deepStrictEqual(set1, set2), true);
+
+});
+
+test('deepStrictEqual() returns false for Set objects that are not deeply equal', (assert) => {
+
+    const set1 = new Set(['a', 'b']);
+    const set2 = new Set(['a', 'c']);
+
+    assert.equal(deepStrictEqual(set1, set2), false);
+
+});
+
+test('deepStrictEqual() returns false for Set objects with different numbers of keys', (assert) => {
+
+    const set1 = new Set(['a', 'b']);
+    const set2 = new Set(['a']);
+
+    assert.equal(deepStrictEqual(set1, set2), false);
+
+});
+
+test('deepStrictEqual() returns false for Set objects with different values', (assert) => {
+
+    const set1 = new Set(['a', 'b']);
+    const set2 = new Set(['a', 'c']);
+
+    assert.equal(deepStrictEqual(set1, set2), false);
+
+});
+
+test('deepStrictEqual() returns false for Set objects with different types', (assert) => {
+
+    const set1 = new Set(['a', 'b']);
+    const set2 = new Set(['a', 2]);
+
+    assert.equal(deepStrictEqual(set1, set2), false);
+
+});
+
+test('deepStrictEqual() returns false for Set objects with different nested values', (assert) => {
+
+    const set1 = new Set([new Set(['a', 'b'])]);
+    const set2 = new Set([new Set(['a', 'c'])]);
+
+    assert.equal(deepStrictEqual(set1, set2), false);
+
+});

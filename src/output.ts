@@ -3,6 +3,7 @@ import {TestResultsByFile, FinalResults} from './run';
 import {isTestPassing} from './isTestPassing';
 import {Assertion, TestResults} from './test';
 import {deserializeError, ErrorObject} from 'serialize-error';
+import {sortTestResults} from './sortTestResults';
 
 const log = console.log;
 const successSymbol = kleur.green('✔');
@@ -19,17 +20,20 @@ ${files.join(', ')}
 
 export function printResultsByFile(resultsByFile: TestResultsByFile) {
 
-    const passedFiles = Object.entries(resultsByFile).filter(([, tests]) => tests.every(isTestPassing));
-    const failedFiles = Object.entries(resultsByFile).filter(([, tests]) => tests.some((test) => !isTestPassing(test)));
+    const sortedResults = sortTestResults(resultsByFile);
 
-    passedFiles.forEach(([filename, tests]) => printFileResults(filename, tests));
-    failedFiles.forEach(([filename, tests]) => printFileResults(filename, tests));
+    for (const [filename, tests] of sortedResults) {
+
+        printFileResults(filename, tests);
+
+    }
 
 }
 
 export function printFileResults(filename: string, tests: TestResults[]) {
 
-    const header = `${kleur.underline().blue(filename)}\n`;
+    const doesFileHaveFailures = tests.some((test) => !isTestPassing(test));
+    const header = `${kleur.underline().blue(filename)} ${doesFileHaveFailures ? failureSymbol : successSymbol}\n`;
 
     log(header);
     tests.forEach(((test) => {
