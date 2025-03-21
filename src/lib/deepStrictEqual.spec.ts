@@ -206,3 +206,12 @@ test('deepStrictEqual() returns false for Set objects with different nested valu
     assert.equal(deepStrictEqual(set1, set2), false);
 
 });
+
+test('deepStrictEqual() returns false when comparing array to object with same numeric keys', (assert) => {
+
+    const obj = {0: 1, 1: 2, 2: 3};
+    const arr = [1, 2, 3];
+
+    assert.equal(deepStrictEqual(obj, arr), false);
+
+});

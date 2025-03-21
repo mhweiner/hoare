@@ -4,6 +4,7 @@ export function deepStrictEqual(obj1: any, obj2: any): boolean {
     if (obj1 === obj2) return true;
 
     if (isPrimitive(obj1) && isPrimitive(obj2)) return obj1 === obj2;
+    if (Array.isArray(obj1) !== Array.isArray(obj2)) return false;
     if (typeof obj1 !== typeof obj2) return false;
     if (obj1 === null || obj2 === null) return false;
 
