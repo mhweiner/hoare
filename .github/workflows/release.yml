@@ -19,7 +19,7 @@ jobs:
           node-version: latest
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
-      - run: npx autorel@next
+      - run: npx autorel@^2
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
