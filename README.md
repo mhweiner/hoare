@@ -120,7 +120,7 @@ See the [examples](examples) and [src](src) folders for more examples.
 
 Aeroview is a lightning-fast, developer-friendly, AI-powered logging IDE. Get started for free at [https://aeroview.io](https://aeroview.io).
 
-Want to sponsor this project? [Reach out](mailto:mhweiner234@gmail.com?subject=I%20want%20to%20sponsor%20brek).
+Want to sponsor this project? [Reach out](mailto:mhweiner234@gmail.com?subject=I%20want%20to%20sponsor%20hoare).
 
 # Other useful libraries
 
