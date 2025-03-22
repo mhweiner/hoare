@@ -24,9 +24,26 @@ npm i -D hoare typescript ts-node c8
 
 > Note: If you are using a different module systems such as ESM, you can create a separate `tsconfig.test.json` file and use the `--project` flag with `tsc` or `ts-node`, or use command line flags.
 
-### 3. (c8 only) Create an `.c8rc.json` file in the root of your project (or use another config option), following the [c8 documentation](https://github.com/bcoe/c8). 
+### 3. (If using c8 for coverage) Create an `.c8rc.json` file in the root of your project (or use another config option), following the [c8 documentation](https://github.com/bcoe/c8). 
 
-For an example, see our [.c8rc.json](../.c8rc.json) file.
+Example:
+
+```json
+{
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+  ],
+  "reporter": [], 
+  "all": true,
+  "cache": false,
+  "clean": true
+}
+```
+
+The above example will include all `.ts` files in the `src` folder, excluding any `.spec.ts` files. You can see our [.c8rc.json](../.c8rc.json) file for reference.
 
 ### 4. Set up your test command in your `package.json` file as appropriate for your project.
 

@@ -1,7 +1,5 @@
 {
   "include": [
-    "demo/**/*.ts",
-    "demo/**/*.js",
     "src/**/*.ts"
   ],
   "exclude": [
