@@ -38,7 +38,7 @@ Example for Typescript with `c8`:
 }
 ```
 
-The above command, along with our [.c8rc.json](.c8rc.json) file settings, will do the following:
+The above command, along with our [.c8rc.json](../.c8rc.json) file settings, will do the following:
 
 1. Run `c8` for code coverage.
 2. Run any  `.spec.js` or `.spec.ts` file within the `src` folder, recursively.
