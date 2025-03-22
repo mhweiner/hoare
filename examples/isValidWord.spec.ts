@@ -11,7 +11,7 @@ test('valid word returns true', async (assert) => {
 
     const result = await mockMod.isValidWord('dog');
 
-    assert.equal(result, true);
+    assert.isTrue(result);
 
 });
 
@@ -19,6 +19,6 @@ test('invalid word returns false', async (assert) => {
 
     const result = await mockMod.isValidWord('nope');
 
-    assert.equal(result, false);
+    assert.isFalse(result);
 
 });
